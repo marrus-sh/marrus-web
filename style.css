@@ -1,0 +1,521 @@
+@charset "UTF-8";
+@import url("/fonts/font.css");
+
+/*  GLOBAL RULES  */
+
+*:root {
+    color: #3b3b3b;
+    font-family: 'Comic Neue', 'Helvetica Neue', sans-serif;
+    font-weight: 300;
+    font-size: 14pt;
+    font-synthesis: none;
+    line-height: 1.5;
+    text-align: justify;
+    quotes: "“" "”" "‘" "’";
+}
+
+@media print {
+
+    *:root {
+        font-size: 12pt;
+        color: black;
+    }
+
+    html {
+        background: white;
+    }
+
+}
+
+*[title]:not([title=""]):not(a) {
+    border-bottom: dotted currentColor black;
+    cursor: help;
+}
+
+@supports (text-decoration-style: dotted) {
+    *[title]:not([title=""]):not(a) {
+        border: none;
+        text-decoration-line: underline;
+        text-decoration-style: dotted;
+    }
+}
+
+*:lang(en) {
+    quotes: "“" "”" "‘" "’";
+}
+
+*:root:root:root:root:root [hidden] {
+    display: none;
+}
+
+/*  PAGE LAYOUT  */
+
+html {
+    margin: 0;
+    padding: 42pt 28pt;
+    overflow: auto;
+}
+
+body {
+    margin: 0 auto;
+    padding: 0;
+    max-width: 475pt;
+}
+
+body::before {
+    display: block;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: url("/images/monogram-square.jpg") center center / contain no-repeat;
+    opacity: .02764;
+    z-index: -1;
+    content: "";
+}
+
+body::after {
+    display: block;
+    margin-top: 42pt;
+    width: 100%;
+    height: 40px;
+    background: url("/images/signature-alpha.png") center bottom / 125px 40px no-repeat, linear-gradient(to bottom, rgba(139, 12, 0, 0) 18px, rgba(139, 12, 0, 1) 18px, rgba(139, 12, 0, 1) 19px, rgba(139, 12, 0, 0) 19px) 30% bottom / calc(30% - 125px) 40px no-repeat, linear-gradient(to bottom, rgba(139, 12, 0, 0) 18px, rgba(139, 12, 0, 1) 18px, rgba(139, 12, 0, 1) 19px, rgba(139, 12, 0, 0) 19px) 70% bottom / calc(30% - 125px) 40px no-repeat;
+    z-index: 1;
+    content: "";
+}
+
+/*  SECTIONING  */
+
+main, article, section, aside, nav, header, footer, div {
+    display: block;
+    clear: both;
+    margin: 0;
+    padding: 0;
+}
+
+aside, section {
+    margin: 21pt 0;
+}
+
+aside {
+    font-weight: 100;
+}
+
+footer {
+    margin: 21pt 0 0;
+    font-size: 12pt;
+    font-weight: 100;
+    text-align: right;
+}
+
+blockquote > footer:last-child::before {
+    content: "– ";
+}
+
+header {
+    margin: 42pt 0 21pt;
+    border-bottom-width: 2pt;
+    border-bottom-style: solid;
+    border-bottom-color: #8b0c00;
+    padding: 0 0 19pt;
+    font-weight: 100;
+    text-align: justify;
+    -moz-text-align-last: center;
+    text-align-last: center;
+}
+
+nav {
+    margin: 10.5pt 0;
+}
+
+/*  TABLES  */
+
+caption {
+    margin: 0;
+    padding: 5.25pt 3.5pt;
+}
+
+table {
+    margin: 21pt auto;
+    border-collapse: separate;
+    border-spacing: 3.15pt 2.1pt;
+    padding: 0;
+    max-width: 100%;
+    text-align: left;
+}
+
+thead {
+    font-weight: 700;
+    text-align: center;
+}
+
+tbody + tbody::before {
+    display: table-row;
+    height: 21pt;
+    content: "";
+}
+
+td > table:only-child {
+    margin: auto;
+    width: 100%;
+}
+
+td, th {
+    border: none;
+    border-radius: 1.75pt;
+    padding: 2.625pt 1.75pt;
+    vertical-align: top;
+}
+
+th {
+    text-align: center;
+    text-decoration: underline;
+}
+
+/*  LISTS  */
+
+ul, ol, dl {
+    margin: 0;
+    padding: 0 0 0 28pt;
+    text-align: left;
+}
+
+ul {
+    list-style-type: circle;
+}
+
+nav ul {
+    list-style-type: none;
+}
+
+li ul {
+    list-style-type: square;
+}
+
+li li ul {
+    list-style-type: disc;
+}
+
+li li li ul {
+    list-style-type: circle;
+}
+
+li li li li ul {
+    list-style-type: square;
+}
+
+ol {
+    list-style-type: upper-roman;
+}
+
+li ol {
+    list-style-type: decimal-leading-zero;
+}
+
+li li ol {
+    list-style-type: lower-latin;
+}
+
+li li li ol {
+    list-style-type: lower-greek;
+}
+
+li li li li ol {
+    list-style-type: decimal;
+}
+
+dt {
+    display: inline;
+    float: left;
+    margin: 0;
+    padding: 0;
+    font-weight: 700;
+}
+
+dt + dt::before {
+    content: ", ";
+    font-weight: 300;
+}
+
+dd {
+    margin: 0 0 0 28pt;
+    padding: 0;
+    font-weight: 300;
+}
+
+dd::before {
+    display: inline;
+    white-space: pre-wrap;
+    content: " : ";
+}
+
+dd + dd::before {
+    content: "″ : ";
+}
+
+dd:after {
+    display: block;
+    clear: both;
+    margin: 0;
+    padding: 0;
+    content: "";
+}
+
+/*  BLOCK ELEMENTS  */
+
+blockquote {
+    margin: 21pt 14pt;
+    font-weight: 100;
+}
+
+figcaption {
+    margin: 0;
+    font-weight: 100;
+    font-size: 12pt;
+    text-align: right;
+}
+
+figure, iframe, img, svg, video {
+    display: block;
+    margin: auto;
+    border: none;
+    padding: 0;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    max-width: 100%;
+    color: inherit;
+}
+
+figure {
+    margin: 21pt auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+
+h1 {
+    margin: 0;
+    color: #8b0c00;
+    font-family: "Comic Neue Angular", "Helvetica Neue", sans-serif;
+    font-size: 42pt;
+    font-weight: 300;
+    line-height: 1;
+    text-align: center;
+}
+
+h2 {
+    margin: 21pt 0 10.5pt;
+    font-family: "Comic Neue Angular", "Helvetica Neue", sans-serif;
+    font-size: 21pt;
+    font-weight: inherit;
+    text-align: left;
+}
+
+h2::before {
+    font-weight: 700;
+    content: "#\A0\A0";
+}
+
+h3 {
+    margin: 21pt 0 0;
+    font-family: "Comic Neue Angular", "Helvetica Neue", sans-serif;
+    font-size: inherit;
+    font-weight: 300;
+    text-decoration: underline;
+}
+
+h3::after {
+    content: ":";
+}
+
+hr {
+    display: block;
+    position: relative;
+    margin: 0;
+    border: none;
+    padding: 0;
+    width: 100%;
+    height: 42pt;
+    background: none;
+    overflow: hidden;
+}
+
+hr::after {
+    display: block;
+    position: absolute;
+    top: 10.5pt;
+    left: 0;
+    right: 0;
+    height: 21pt;
+    color: #8b0c00;
+    text-align: center;
+    white-space: pre;
+    content: "*   *   *";
+}
+
+iframe[src*="//youtube.com/embed/"], iframe[src*="//www.youtube.com/embed/"] {
+    width: 560px;
+    height: 315px;
+}
+
+img.inline, svg.inline {
+    display: inline-block;
+    margin: 0;
+    padding: calc(.25em / 1.5);
+    max-height: calc(1em / 1.5);
+    max-width: calc(1em / 1.5);
+    line-height: 1em;
+    vertical-align: middle;
+}
+
+p {
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+h3 + p, p + p {
+    margin-top: 5.25pt;
+    text-indent: 30pt;
+}
+
+footer h3 + p, footer p + p {
+    margin-top: 18pt;
+    text-indent: 0;
+}
+
+p::before {
+    font-weight: 100;
+    text-indent: 0;
+}
+
+p + p::before {
+    position: absolute;
+    top: 0;
+    left: 7pt;
+    color: #8b0c00;
+    content: "¶";
+}
+
+blockquote p::before, blockquote p + p::before {
+    position: absolute;
+    top: 0;
+    left: auto;
+    right: 100%;
+    color: #8b0c00;
+    content: open-quote;
+}
+
+blockquote p:not(:last-of-type)::after {
+    content: no-close-quote;
+}
+
+blockquote p:last-of-type::after {
+    content: close-quote;
+}
+
+footer p + p::before {
+    content: none;
+}
+
+/*  PHRASING  */
+
+a[href] {
+    color: #8b0c00;
+    transition: text-decoration-color .35s;
+}
+
+@supports (text-decoration-style: dashed) {
+    a[href] {
+        text-decoration: underline;
+        text-decoration-style: dashed;
+    }
+}
+
+a[href]:hover{
+    text-decoration-color: rgba(139, 12, 0, 0);
+}
+
+@media print {
+
+    a[href] {
+        text-decoration: none;
+    }
+
+    a[href]::after {
+        content: " [" attr(href) "]";
+    }
+
+}
+
+nav a[href] {
+    text-decoration: none;
+}
+
+@supports (text-decoration-style: dotted) {
+    abbr {
+        border: none;
+    }
+}
+
+b {
+    font-weight: 700;
+}
+
+cite {
+    font-style: inherit;
+}
+
+code {
+    font-family: inherit;
+    font-weight: 100;
+}
+
+code::before, code::after {
+    content: "`";
+}
+
+del {
+    text-decoration: line-through;
+}
+
+dfn {
+    color: #8b0c00;
+    font-style: inherit;
+    font-weight: 700;
+}
+
+em {
+    font-style: inherit;
+    text-decoration: underline;
+}
+
+ins {
+    text-decoration: underline;
+}
+
+s {
+    text-decoration: line-through;
+}
+
+small {
+    font-size: inherit;
+    font-weight: 100;
+}
+
+strong {
+    font-weight: 700;
+}
+
+sup {
+    text-transform: uppercase;
+}
+
+u {
+    text-decoration-style: wavy;
+}
