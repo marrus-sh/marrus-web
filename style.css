@@ -394,7 +394,7 @@ p::before {
     text-indent: 0;
 }
 
-p + p::before {
+h3 + p::before, p + p::before {
     position: absolute;
     top: 0;
     left: 7pt;
@@ -419,7 +419,7 @@ blockquote p:last-of-type::after {
     content: close-quote;
 }
 
-footer p + p::before {
+footer h3 + p::before, footer p + p::before {
     content: none;
 }
 
