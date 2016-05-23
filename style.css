@@ -423,6 +423,19 @@ footer p + p::before {
     content: none;
 }
 
+pre {
+    margin: 21pt 14pt;
+    font-family: inherit;
+    font-weight: 100;
+}
+
+pre::before, pre::after {
+    display: block;
+    margin: 0 -21pt;
+    color: #8b0c00;
+    content: "```";
+}
+
 /*  PHRASING  */
 
 a[href] {
