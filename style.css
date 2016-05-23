@@ -25,6 +25,10 @@
         background: white;
     }
 
+    body:before {
+        content: none;
+    }
+
 }
 
 *[title]:not([title=""]):not(a) {
