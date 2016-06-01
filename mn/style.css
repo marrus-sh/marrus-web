@@ -1,0 +1,332 @@
+@charset "UTF-8";
+
+/*  GLOBAL RULES  */
+
+*:root {
+    color: #3b3b3b;
+    font-family: 'Junicode', 'Iowan Old Style', 'Hoefler Text', serif;
+    font-weight: normal;
+    font-size: 12pt;
+    line-height: 1.35;
+    text-align: justify;
+    quotes: "“" "”" "‘" "’";
+}
+
+*[title]:not([title=""]):not(a) {
+    border-bottom: dotted currentColor black;
+    cursor: help;
+}
+
+@supports (text-decoration-style: dotted) {
+    *[title]:not([title=""]):not(a) {
+        border: none;
+        text-decoration-line: underline;
+        text-decoration-style: dotted;
+    }
+}
+
+*:lang(en) {
+    quotes: "“" "”" "‘" "’";
+}
+
+*:root:root:root:root:root [hidden] {
+    display: none;
+}
+
+/*  PAGE LAYOUT  */
+
+html {
+    margin: 0;
+    padding: 1in .5in;
+}
+
+body {
+    margin: 0 auto;
+    padding: 0;
+    max-width: 8.5in;
+}
+
+/*  SECTIONING  */
+
+main, article, section, aside, nav, header, footer, div {
+    display: block;
+    clear: both;
+    margin: 0;
+    padding: 0;
+}
+
+footer {
+    margin: 18pt 0 0;
+    font-size: 10pt;
+    font-weight: 100;
+}
+
+blockquote > footer:last-child::before {
+    content: "– ";
+}
+
+header {
+    margin: 36pt 0;
+    border-bottom-width: 1pt;
+    border-bottom-style: solid;
+    border-bottom-color: black;
+    padding: 0 0 36pt;
+    text-align: center;
+}
+
+/*  LISTS  */
+
+ul, ol, dl {
+    margin: 0;
+    padding: 0 0 0 1.7em;
+    text-align: left;
+}
+
+dt {
+    display: inline;
+    float: left;
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+}
+
+dt + dt::before {
+    content: ", ";
+    font-weight: normal;
+}
+
+dd {
+    margin: 0 0 0 1.7em;
+    padding: 0;
+    font-weight: normal;
+}
+
+dd::before {
+    display: inline;
+    white-space: pre-wrap;
+    content: " : ";
+}
+
+dd + dd::before {
+    content: "″ : ";
+}
+
+dd:after {
+    display: block;
+    clear: both;
+    margin: 0;
+    padding: 0;
+    content: "";
+}
+
+/*  BLOCK ELEMENTS  */
+
+blockquote {
+    margin: 18pt 1.7em;
+}
+
+figcaption {
+    margin: 0;
+    font-size: 10pt;
+    text-align: right;
+}
+
+figure, iframe, img, svg, video, object, embed {
+    display: block;
+    margin: 18pt auto;
+    border: none;
+    padding: 0;
+    width: 5in;
+    height: 6.5in;
+    color: inherit;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+
+h1 {
+    margin: 0;
+    font-size: 35pt;
+    font-weight: bold;
+    line-height: 1;
+    text-align: center;
+}
+
+h2 {
+    margin: 18pt 0;
+    font-size: 30pt;
+    font-weight: bold;
+    text-align: left;
+}
+
+h3 {
+    margin: 18pt 0 0;
+    font-size: 25pt;
+    font-weight: inherit;
+    text-decoration: underline;
+}
+
+hr {
+    display: block;
+    position: relative;
+    margin: 0;
+    border: none;
+    padding: 0;
+    width: 100%;
+    height: 36pt;
+    background: none;
+    overflow: hidden;
+}
+
+hr::after {
+    display: block;
+    position: absolute;
+    top: 9pt;
+    left: 0;
+    right: 0;
+    height: 18pt;
+    text-align: center;
+    white-space: pre;
+    line-height: 18pt;
+    content: "*   *   *";
+}
+
+iframe[src*="//youtube.com/embed/"], iframe[src*="//www.youtube.com/embed/"] {
+    width: 560px;
+    height: 315px;
+}
+
+img.inline, svg.inline {
+    display: inline-block;
+    margin: 0;
+    padding: calc(.25em / 1.35);
+    max-height: calc(1em / 1.35);
+    max-width: calc(1em / 1.35);
+    line-height: 1em;
+    vertical-align: middle;
+}
+
+p {
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+h3 + p, p + p {
+    text-indent: 30pt;
+}
+
+footer h3 + p, footer p + p {
+    margin-top: 14pt;
+    text-indent: 0;
+}
+
+blockquote p::before, blockquote p + p::before {
+    position: absolute;
+    top: 0;
+    left: auto;
+    right: 100%;
+    content: open-quote;
+}
+
+blockquote p:not(:last-of-type)::after {
+    content: no-close-quote;
+}
+
+blockquote p:last-of-type::after {
+    content: close-quote;
+}
+
+footer h3 + p::before, footer p + p::before {
+    content: none;
+}
+
+pre {
+    margin: 18pt 1.7em;
+}
+
+/*  PHRASING  */
+
+a[href] {
+    color: inherit;
+    transition: text-decoration-color .35s;
+}
+
+@supports (text-decoration-style: dashed) {
+    a[href] {
+        text-decoration: underline;
+        text-decoration-style: dashed;
+    }
+}
+
+a[href]:hover{
+    text-decoration-color: transparent;
+}
+
+@media print {
+
+    a[href] {
+        text-decoration: none;
+    }
+
+    a[href]::after {
+        content: " [" attr(href) "]";
+    }
+
+}
+
+nav a[href] {
+    text-decoration: none;
+}
+
+@supports (text-decoration-style: dotted) {
+    abbr {
+        border: none;
+    }
+}
+
+b {
+    font-weight: bold;
+}
+
+cite {
+    font-style: inherit;
+}
+
+del {
+    text-decoration: line-through;
+}
+
+dfn {
+    font-style: inherit;
+    font-weight: bold;
+}
+
+ins {
+    text-decoration: underline;
+}
+
+s {
+    text-decoration: line-through;
+}
+
+small {
+    font-size: 10pt;
+}
+
+strong {
+    font-weight: bold;
+    text-decoration: underline;
+    text-decoration-style: double;
+}
+
+sup {
+    text-transform: uppercase;
+}
+
+u {
+    text-decoration-style: wavy;
+}
