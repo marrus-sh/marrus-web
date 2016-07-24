@@ -82,6 +82,7 @@ body {
     left: 0;
     width: auto;
     height: auto;
+    -webkit-touch-callout: none;
 }
 
 #logo:hover::after, #logo:active::after {
