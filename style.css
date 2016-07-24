@@ -84,7 +84,7 @@ body {
     height: auto;
 }
 
-#logo:hover::after {
+#logo:hover::after, #logo:active::after {
     display: block;
     position: absolute;
     top: 0;
@@ -476,11 +476,11 @@ a[href] {
     color: #e83f2c;
 }
 
-a[href]:hover {
+a[href]:hover, a[href]:active {
     background: url(images/link-bg.gif) top left / 256px 32px repeat;
 }
 
-a[href]:hover::after {
+a[href]:hover::after, a[href]:active::after {
     display: block;
     position: absolute;
     top: 0;
@@ -491,11 +491,11 @@ a[href]:hover::after {
     content: "";
 }
 
-a[href] ~ a[href]:hover, a[href] ~ a[href]:hover::after {
+a[href] ~ a[href]:hover, a[href] ~ a[href]:hover::after, a[href] ~ a[href]:active, a[href] ~ a[href]:active::after {
     background-position: top right;
 }
 
-a[href] + a[href]:hover, a[href] + a[href]:hover::after {
+a[href] + a[href]:hover, a[href] + a[href]:hover::after, a[href] + a[href]:active, a[href] + a[href]:active::after {
     background-position: top center;
 }
 
