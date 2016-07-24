@@ -494,11 +494,11 @@ main a[href]:hover::after {
 }
 
 main a[href] ~ a[href]:hover, main a[href] ~ a[href]:hover::after {
-    background-position: top right;
+    background-position: top center;
 }
 
-main a[href] + a[href]:hover, main a[href] + a[href]:hover::after {
-    background-position: top center;
+main a[href] ~ a[href] ~ a[href]:hover, main a[href] ~ a[href] ~ a[href]:hover::after {
+    background-position: top right;
 }
 
 @media print {
