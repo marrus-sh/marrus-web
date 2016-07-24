@@ -4,14 +4,24 @@
 /*  GLOBAL RULES  */
 
 *:root {
-    color: #3b3b3b;
-    font-family: 'Comic Neue', 'Helvetica Neue', sans-serif;
-    font-weight: 300;
-    font-size: 14pt;
+    color: #cccccc;
+    background: #0c0c0c;
+    font-family: "Unifont Upper", "Unifont", monospace;
+    font-size: 20px;
     font-synthesis: none;
-    line-height: 1.5;
-    text-align: justify;
-    quotes: "“" "”" "‘" "’";
+    line-height: 1.6;
+    text-align: left;
+    quotes: "‘" "’" "“" "”";
+}
+
+*::selection {
+    color: #0c0c0c;
+    background: #f6d037;
+}
+
+*::-moz-selection {
+    color: #0c0c0c;
+    background: #f6d037;
 }
 
 @media print {
@@ -19,33 +29,27 @@
     *:root {
         font-size: 12pt;
         color: black;
-    }
-
-    html {
         background: white;
-    }
-
-    body:before {
-        content: none;
+        font-family: "Times New Roman", serif;
     }
 
 }
 
 *[title]:not([title=""]):not(a) {
-    border-bottom: dotted currentColor black;
+    border-bottom: dashed currentColor black;
     cursor: help;
 }
 
-@supports (text-decoration-style: dotted) {
+@supports (text-decoration-style: dashed) {
     *[title]:not([title=""]):not(a) {
         border: none;
         text-decoration-line: underline;
-        text-decoration-style: dotted;
+        text-decoration-style: dashed;
     }
 }
 
 *:lang(en) {
-    quotes: "“" "”" "‘" "’";
+    quotes: "‘" "’" "“" "”";
 }
 
 *:root:root:root:root:root [hidden] {
@@ -56,42 +60,62 @@
 
 html {
     margin: 0;
-    padding: 42pt 28pt;
-    overflow: auto;
+    padding: 0;
+    width: 100%;
+    height: 100%;
 }
 
 body {
-    margin: 0 auto;
-    padding: 0;
-    max-width: 475pt;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: 0;
+    padding: 88px 0px 88px;
+    overflow: hidden;
 }
 
-body::before {
+#logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: auto;
+    height: auto;
+}
+
+#logo:hover::after {
     display: block;
-    position: fixed;
+    position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    background: url("/images/monogram-square.jpg") center center / contain no-repeat;
-    opacity: .02764;
-    z-index: -1;
+    background: url(images/logo.gif) top left / cover no-repeat;
     content: "";
 }
 
-body::after {
-    display: block;
-    margin-top: 42pt;
-    width: 100%;
-    height: 40px;
-    background: url("/images/signature-alpha.png") center bottom / 125px 40px no-repeat, linear-gradient(to bottom, rgba(139, 12, 0, 0) 18px, rgba(139, 12, 0, 1) 18px, rgba(139, 12, 0, 1) 19px, rgba(139, 12, 0, 0) 19px) 30% bottom / calc(30% - 125px) 40px no-repeat, linear-gradient(to bottom, rgba(139, 12, 0, 0) 18px, rgba(139, 12, 0, 1) 18px, rgba(139, 12, 0, 1) 19px, rgba(139, 12, 0, 0) 19px) 70% bottom / calc(30% - 125px) 40px no-repeat;
-    z-index: 1;
-    content: "";
+#content {
+    margin: 0 auto;
+    max-width: 604px;
+    height: 100%;
 }
 
 /*  SECTIONING  */
 
-main, article, section, aside, nav, header, footer, div {
+main {
+    display: block;
+    position: relative;
+    margin: 0;
+    padding: 32px;
+    height: calc(100% - 104px);
+    color: #3b3b3b;
+    background: rgba(255, 255, 255, .961);
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+article, section, aside, nav, header, footer, div {
     display: block;
     clear: both;
     margin: 0;
@@ -99,17 +123,17 @@ main, article, section, aside, nav, header, footer, div {
 }
 
 aside, section {
-    margin: 21pt 0;
+    margin: 32px 0;
+    text-align: left;
 }
 
 aside {
-    font-weight: 100;
+    color: #636363;
 }
 
-footer {
-    margin: 21pt 0 0;
-    font-size: 12pt;
-    font-weight: 100;
+main > footer {
+    margin: 32px 0 0;
+    font-size: 16px;
     text-align: right;
 }
 
@@ -117,46 +141,43 @@ blockquote > footer:last-child::before {
     content: "– ";
 }
 
-header {
-    margin: 42pt 0 21pt;
-    border-bottom-width: 2pt;
+main > header {
+    margin: 32px;
+    border-bottom-width: 3px;
     border-bottom-style: solid;
-    border-bottom-color: #8b0c00;
-    padding: 0 0 19pt;
-    font-weight: 100;
-    text-align: justify;
-    -moz-text-align-last: center;
-    text-align-last: center;
+    border-bottom-color: #1c1c1c;
+    padding: 0 0 29px;
+    text-align: center;
 }
 
-nav {
-    margin: 10.5pt 0;
+main > nav {
+    margin: 16px 0;
 }
 
 /*  TABLES  */
 
 caption {
     margin: 0;
-    padding: 5.25pt 3.5pt;
+    padding: 8px 4px;
 }
 
 table {
-    margin: 21pt auto;
+    margin: 32px auto;
     border-collapse: separate;
-    border-spacing: 3.15pt 2.1pt;
+    border-spacing: 4px 2px;
     padding: 0;
     max-width: 100%;
     text-align: left;
 }
 
 thead {
-    font-weight: 700;
+    color: #1c1c1c;
     text-align: center;
 }
 
 tbody + tbody::before {
     display: table-row;
-    height: 21pt;
+    height: 32px;
     content: "";
 }
 
@@ -167,8 +188,8 @@ td > table:only-child {
 
 td, th {
     border: none;
-    border-radius: 1.75pt;
-    padding: 2.625pt 1.75pt;
+    border-radius: 2px;
+    padding: 2px;
     vertical-align: top;
 }
 
@@ -181,7 +202,7 @@ th {
 
 ul, ol, dl {
     margin: 0;
-    padding: 0 0 0 28pt;
+    padding: 0 0 0 32px;
     text-align: left;
 }
 
@@ -230,22 +251,22 @@ li li li li ol {
 }
 
 dt {
-    display: inline;
+    display: inline-block;
     float: left;
-    margin: 0;
-    padding: 0;
-    font-weight: 700;
+    margin: 0 -6px;
+    padding: 0 6px;
+    color: #f5f5f5;
+    background: #e83f2c;
 }
 
 dt + dt::before {
     content: ", ";
-    font-weight: 300;
+    color: #cccccc;
 }
 
 dd {
-    margin: 0 0 0 28pt;
+    margin: 0 0 0 32px;
     padding: 0;
-    font-weight: 300;
 }
 
 dd::before {
@@ -269,31 +290,35 @@ dd:after {
 /*  BLOCK ELEMENTS  */
 
 blockquote {
-    margin: 21pt 14pt;
+    margin: 32px 16px;
     font-weight: 100;
 }
 
 figcaption {
     margin: 0;
-    font-weight: 100;
-    font-size: 12pt;
+    color: #656565;
+    font-size: 16px;
     text-align: right;
 }
 
 figure, iframe, img, svg, video {
     display: block;
-    margin: auto;
+    margin: 0;
     border: none;
     padding: 0;
-    width: -webkit-fit-content;
-    width: -moz-fit-content;
-    width: fit-content;
     max-width: 100%;
     color: inherit;
 }
 
+main > figure, main > iframe, main > img, main > svg, main > video {
+    margin: auto;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+}
+
 figure {
-    margin: 21pt auto;
+    margin: 32px auto;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -303,33 +328,33 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-    margin: 0;
-    color: #8b0c00;
-    font-family: "Comic Neue Angular", "Helvetica Neue", sans-serif;
-    font-size: 42pt;
-    font-weight: 300;
+    display: inline-block;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 10px;
+    font-size: 20px;
     line-height: 1;
-    text-align: center;
+    text-align: left;
+    min-width: 160px;
+    width: auto;
+    color: #1c1c1c;
+    background: rgba(255, 255, 255, .8);
+}
+
+h1::before {
+    content: "• ";
 }
 
 h2 {
-    margin: 21pt 0 10.5pt;
-    font-family: "Comic Neue Angular", "Helvetica Neue", sans-serif;
-    font-size: 21pt;
-    font-weight: inherit;
+    margin: 32px 0 16px;
+    font-size: 32px;
+    line-height: 1;
     text-align: left;
 }
 
-h2::before {
-    font-weight: 700;
-    content: "#\A0\A0";
-}
-
 h3 {
-    margin: 21pt 0 0;
-    font-family: "Comic Neue Angular", "Helvetica Neue", sans-serif;
+    margin: 32px 0 0;
     font-size: inherit;
-    font-weight: 300;
     text-decoration: underline;
 }
 
@@ -344,7 +369,7 @@ hr {
     border: none;
     padding: 0;
     width: 100%;
-    height: 42pt;
+    height: 64px;
     background: none;
     overflow: hidden;
 }
@@ -352,11 +377,11 @@ hr {
 hr::after {
     display: block;
     position: absolute;
-    top: 10.5pt;
+    top: 16px;
     left: 0;
     right: 0;
-    height: 21pt;
-    color: #8b0c00;
+    height: 32px;
+    color: #1c1c1c;
     text-align: center;
     white-space: pre;
     content: "*   *   *";
@@ -384,25 +409,23 @@ p {
 }
 
 h3 + p, p + p {
-    margin-top: 5.25pt;
-    text-indent: 30pt;
+    text-indent: 48px;
 }
 
 footer h3 + p, footer p + p {
-    margin-top: 18pt;
+    margin-top: 20px;
     text-indent: 0;
 }
 
 p::before {
-    font-weight: 100;
+    color: #636363;
     text-indent: 0;
 }
 
 h3 + p::before, p + p::before {
     position: absolute;
     top: 0;
-    left: 7pt;
-    color: #8b0c00;
+    left: 16px;
     content: "¶";
 }
 
@@ -411,7 +434,6 @@ blockquote p::before, blockquote p + p::before {
     top: 0;
     left: auto;
     right: 100%;
-    color: #8b0c00;
     content: open-quote;
 }
 
@@ -428,34 +450,53 @@ footer h3 + p::before, footer p + p::before {
 }
 
 pre {
-    margin: 21pt 14pt;
+    margin: 32px 16px;
     font-family: inherit;
-    font-weight: 100;
+    color: #0c0c0c;
+    white-space: pre-wrap;
 }
 
 pre::before, pre::after {
     display: block;
-    margin: 0 -21pt;
-    color: #8b0c00;
+    margin: 0 -32px;
+    color: #636363;
     content: "```";
 }
 
 /*  PHRASING  */
 
 a[href] {
-    color: #8b0c00;
-    transition: text-decoration-color .35s;
+    display: inline-block;
+    position: relative;
+    margin: 0 -6px;
+    padding: 0 6px;
+    height: 32px;
+    text-indent: 0;
+    text-decoration: none;
+    color: #e83f2c;
 }
 
-@supports (text-decoration-style: dashed) {
-    a[href] {
-        text-decoration: underline;
-        text-decoration-style: dashed;
-    }
+a[href]:hover {
+    background: url(images/link-bg.gif) top left / 256px 32px repeat;
 }
 
-a[href]:hover{
-    text-decoration-color: rgba(139, 12, 0, 0);
+a[href]:hover::after {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: url(images/link-fg.gif) top left / 256px 32px repeat;
+    content: "";
+}
+
+a[href] ~ a[href]:hover, a[href] ~ a[href]:hover::after {
+    background-position: top right;
+}
+
+a[href] + a[href]:hover, a[href] + a[href]:hover::after {
+    background-position: top center;
 }
 
 @media print {
@@ -481,7 +522,7 @@ nav a[href] {
 }
 
 b {
-    font-weight: 700;
+    color: #1c1c1c;
 }
 
 cite {
@@ -490,7 +531,7 @@ cite {
 
 code {
     font-family: inherit;
-    font-weight: 100;
+    color: #0c0c0c;
 }
 
 code::before, code::after {
@@ -502,14 +543,14 @@ del {
 }
 
 dfn {
-    color: #8b0c00;
+    color: #1c1c1c;
     font-style: inherit;
-    font-weight: 700;
 }
 
 em {
     font-style: inherit;
     text-decoration: underline;
+    text-decoration-style: wavy;
 }
 
 ins {
@@ -521,12 +562,12 @@ s {
 }
 
 small {
+    color: #636363;
     font-size: inherit;
-    font-weight: 100;
 }
 
 strong {
-    font-weight: 700;
+    color: #1c1c1c;
     text-decoration: underline;
     text-decoration-style: double;
 }
@@ -536,5 +577,6 @@ sup {
 }
 
 u {
+    text-decoration: underline;
     text-decoration-style: wavy;
 }
