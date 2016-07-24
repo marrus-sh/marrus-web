@@ -77,23 +77,19 @@ body {
 }
 
 #logo {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: auto;
-    height: auto;
-    -webkit-touch-callout: none;
-}
-
-#logo:hover::after, #logo:active::after {
     display: block;
     position: absolute;
     top: 0;
-    bottom: 0;
     left: 0;
-    right: 0;
-    background: url(images/logo.gif) top left / cover no-repeat;
-    content: "";
+    width: 384px;
+    height: 48px;
+    margin: 0;
+    padding: 0;
+    background: url(images/logo.png) top left / 384px 48px no-repeat;
+}
+
+#logo:hover, #logo:active {
+    background: url(images/logo.gif) top left / 384px 48px no-repeat;
 }
 
 #content {
@@ -132,7 +128,7 @@ aside {
     color: #636363;
 }
 
-main > footer {
+main footer {
     margin: 32px 0 0;
     font-size: 16px;
     text-align: right;
@@ -142,7 +138,7 @@ blockquote > footer:last-child::before {
     content: "– ";
 }
 
-main > header {
+main header {
     margin: 32px;
     border-bottom-width: 3px;
     border-bottom-style: solid;
@@ -151,7 +147,7 @@ main > header {
     text-align: center;
 }
 
-main > nav {
+main nav {
     margin: 16px 0;
 }
 
@@ -311,7 +307,7 @@ figure, iframe, img, svg, video {
     color: inherit;
 }
 
-main > figure, main > iframe, main > img, main > svg, main > video {
+main figure, main iframe, main img, main svg, main video {
     margin: auto;
     width: -webkit-fit-content;
     width: -moz-fit-content;
@@ -467,21 +463,26 @@ pre::before, pre::after {
 /*  PHRASING  */
 
 a[href] {
+    text-decoration: none;
+    color: #e83f2c;
+    -webkit-touch-callout: none;
+}
+
+main a[href] {
     display: inline-block;
     position: relative;
     margin: 0 -6px;
     padding: 0 6px;
     height: 32px;
     text-indent: 0;
-    text-decoration: none;
-    color: #e83f2c;
+    -webkit-touch-callout: default;
 }
 
-a[href]:hover, a[href]:active {
+main a[href]:hover {
     background: url(images/link-bg.gif) top left / 256px 32px repeat;
 }
 
-a[href]:hover::after, a[href]:active::after {
+main a[href]:hover::after {
     display: block;
     position: absolute;
     top: 0;
@@ -492,11 +493,11 @@ a[href]:hover::after, a[href]:active::after {
     content: "";
 }
 
-a[href] ~ a[href]:hover, a[href] ~ a[href]:hover::after, a[href] ~ a[href]:active, a[href] ~ a[href]:active::after {
+main a[href] ~ a[href]:hover, main a[href] ~ a[href]:hover::after {
     background-position: top right;
 }
 
-a[href] + a[href]:hover, a[href] + a[href]:hover::after, a[href] + a[href]:active, a[href] + a[href]:active::after {
+main a[href] + a[href]:hover, main a[href] + a[href]:hover::after {
     background-position: top center;
 }
 
