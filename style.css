@@ -101,7 +101,7 @@ body {
 }
 
 #header a[href]:hover::before, #navigation a[href]:hover::before {
-    content: "–›"
+    content: "–›";
 }
 
 #header a[href]::after, #navigation a[href]::after {
@@ -207,7 +207,6 @@ body {
 
     body {
         padding: 20px;
-        overflow: scroll;
     }
 
     #header {
