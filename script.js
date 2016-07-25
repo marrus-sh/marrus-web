@@ -33,6 +33,6 @@
         y = e.clientY;
     }
 
-    window.addEventListener("load", init, false);
+    document.addEventListener("DOMContentLoaded", init, false);
 
 })()
