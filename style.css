@@ -67,35 +67,185 @@ html {
 
 body {
     position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
+    top: -10px;
+    left: -10px;
+    bottom: -10px;
+    right: -10px;
     margin: 0;
-    padding: 88px 0px 88px;
+    border: 10px transparent solid;
+    padding: 76px 0px 76px 232px;
+    background-position: center center;
+    background-size: cover;
+    background-origin: border-box;
+    background-repeat: no-repeat;
     overflow: hidden;
 }
 
-#logo {
+#header {
+    display: block;
+    position: absolute;
+    top: 14px;
+    left: 0;
+}
+
+#header a[href], #navigation a[href] {
+    display: block;
+    position: relative;
+    margin: 0;
+    padding: 0 8px;
+    overflow: hidden;
+}
+
+#header a[href]:hover, #navigation a[href]:hover {
+    opacity: 1;
+}
+
+#header a[href]:hover::before, #navigation a[href]:hover::before {
+    content: "–›"
+}
+
+#header a[href]::after, #navigation a[href]::after {
     display: block;
     position: absolute;
     top: 0;
     left: 0;
-    width: 384px;
-    height: 48px;
-    margin: 0;
-    padding: 0;
-    background: url(images/logo.png) top left / 384px 48px no-repeat;
+    bottom: 0;
+    right: 0;
+    background-position: top left;
+    background-size: contain;
+    background-repeat: no-repeat;
+    content: "";
 }
 
-#logo:hover, #logo:active {
-    background: url(images/logo.gif) top left / 384px 48px no-repeat;
+#header a[href] {
+    width: 384px;
+    height: 48px;
+    opacity: .83247;
+}
+
+#navigation {
+    display: block;
+    position: absolute;
+    top: 68px;
+    left: 12px;
+}
+
+#navigation a[href] {
+    margin: 0 0 4px;
+    width: 208px;
+    height: 32px;
+    opacity: .79875;
+}
+
+#header a[href="/"]::after {
+    background-image: url(images/logo.png);
+}
+
+#header a[href="/"]:hover::after {
+    background-image: url(images/logo.gif);
+}
+
+#navigation a[href="/about"]::after {
+    background-image: url(images/menu-about.png);
+}
+
+#navigation a[href="/about"]:hover::after {
+    background-image: url(images/menu-about.gif);
+}
+
+#navigation a[href="/languages"]::after {
+    background-image: url(images/menu-languages.png);
+}
+
+#navigation a[href="/languages"]:hover::after {
+    background-image: url(images/menu-languages.gif);
+}
+
+#navigation a[href="/games"]::after {
+    background-image: url(images/menu-games.png);
+}
+
+#navigation a[href="/games"]:hover::after {
+    background-image: url(images/menu-games.gif);
+}
+
+#navigation a[href="/art"]::after {
+    background-image: url(images/menu-art.png);
+}
+
+#navigation a[href="/art"]:hover::after {
+    background-image: url(images/menu-art.gif);
+}
+
+#navigation a[href="/writings"]::after {
+    background-image: url(images/menu-writings.png);
+}
+
+#navigation a[href="/writings"]:hover::after {
+    background-image: url(images/menu-writings.gif);
+}
+
+#navigation a[href="/marginalia"]::after {
+    background-image: url(images/menu-marginalia.png);
+}
+
+#navigation a[href="/marginalia"]:hover::after {
+    background-image: url(images/menu-marginalia.gif);
 }
 
 #content {
     margin: 0 auto;
     max-width: 604px;
     height: 100%;
+}
+
+#tab {
+    cursor: pointer;
+}
+
+@media (max-width: 496px) {
+
+    body {
+        padding: 20px;
+        overflow: scroll;
+    }
+
+    #header {
+        position: static;
+        margin: -6px -20px;
+    }
+
+    #navigation {
+        position: static;
+        margin: 12px -8px;
+    }
+
+    content {
+        height: auto;
+    }
+
+}
+
+@media (max-width: 384px) {
+
+    #header {
+        margin: -4px -20px;
+    }
+
+    #header a[href] {
+        width: 256px;
+        height: 32px;
+    }
+
+    #navigation {
+        margin: 16px -4px;
+    }
+
+    #navigation a[href] {
+        width: 104px;
+        height: 16px;
+    }
+
 }
 
 /*  SECTIONING  */
@@ -110,6 +260,13 @@ main {
     background: rgba(255, 255, 255, .961);
     overflow-x: hidden;
     overflow-y: scroll;
+    transition: height .5s, padding-top .5s, padding-bottom .5s;
+}
+
+#content[data-collapsed] main {
+    height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 article, section, aside, nav, header, footer, div {
@@ -479,6 +636,7 @@ main a[href] {
 }
 
 main a[href]:hover {
+    color: #f5f5f5;
     background: url(images/link-bg.gif) top left / 256px 32px repeat;
 }
 
