@@ -143,7 +143,7 @@ body {
 }
 
 #header a[href="/"]:hover::after {
-    background-image: url(images/logo.gif);
+    background-image: url(images/logo.gif), url(images/logo.png);
 }
 
 #navigation a[href="/about"]::after {
@@ -151,7 +151,7 @@ body {
 }
 
 #navigation a[href="/about"]:hover::after {
-    background-image: url(images/menu-about.gif);
+    background-image: url(images/menu-about.gif), url(images/menu-about.png);
 }
 
 #navigation a[href="/languages"]::after {
@@ -159,7 +159,7 @@ body {
 }
 
 #navigation a[href="/languages"]:hover::after {
-    background-image: url(images/menu-languages.gif);
+    background-image: url(images/menu-languages.gif), url(images/menu-languages.png);
 }
 
 #navigation a[href="/games"]::after {
@@ -167,7 +167,7 @@ body {
 }
 
 #navigation a[href="/games"]:hover::after {
-    background-image: url(images/menu-games.gif);
+    background-image: url(images/menu-games.gif), url(images/menu-games.png);
 }
 
 #navigation a[href="/art"]::after {
@@ -175,7 +175,7 @@ body {
 }
 
 #navigation a[href="/art"]:hover::after {
-    background-image: url(images/menu-art.gif);
+    background-image: url(images/menu-art.gif), url(images/menu-art.png);
 }
 
 #navigation a[href="/writings"]::after {
@@ -183,7 +183,7 @@ body {
 }
 
 #navigation a[href="/writings"]:hover::after {
-    background-image: url(images/menu-writings.gif);
+    background-image: url(images/menu-writings.gif), url(images/menu-writings.png);
 }
 
 #navigation a[href="/marginalia"]::after {
@@ -191,7 +191,7 @@ body {
 }
 
 #navigation a[href="/marginalia"]:hover::after {
-    background-image: url(images/menu-marginalia.gif);
+    background-image: url(images/menu-marginalia.gif), url(images/menu-marginalia.png);
 }
 
 #content {
