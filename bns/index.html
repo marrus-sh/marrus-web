@@ -15,154 +15,150 @@
     <meta property="article:author" content="https://www.facebook.com/marrus.sh">
     <link rel="icon" href="/favicon.png">
     <link rel="stylesheet" type="text/css" href="/style.css">
-    <script type="text/javascript" src="/script.js"></script>
 </head>
 <body>
     <header id="header">
-        <a class="" href="/" target="_self">Margaret Russel</a>
+        <h1><a href="/" target="_self">Go<sub>♀</sub></a></h1>
+        <nav>
+            <a href="/about/" title="about" target="_self">About</a> |
+            <a href="/languages/" title="languages" target="_self">Languages</a> |
+            <a href="/art/" title="art" target="_self">Art</a> |
+            <a href="/games/" title="games" target="_self">Games</a> |
+            <a href="/writings/" title="writings" target="_self">Writings</a>
+        </nav>
     </header>
-    <nav id="navigation">
-        <a href="/about" target="_self">About</a>
-        <a href="/languages" target="_self">Languages</a>
-        <a href="/games" target="_self">Games</a>
-        <a href="/art" target="_self">Art</a>
-        <a href="/writings" target="_self">Writings</a>
-        <a href="/marginalia" target="_self">Marginalia</a>
-    </nav>
-    <div id="content">
-        <h1 id="tab">The <abbr title="Branching Notational System">BNS</abbr></h1>
-        <main>
-            <header>
-                marrus.xyz (2016) : <a href="tag:marrus.xyz,2016:bns::BNS:3:1:2:01">017.C.I.2.01</a>
-            </header>
-            <p>
-                The Branching Notational System [BNS] is an organizational system under which I have organized my various projects.
-                It is designed to facilitate a canonical and machine-readible ordering system for projects, as well as generate a series of unique identifiers with a variety of representations.
-            </p>
-            <p>
-                Every work in the Branching Notational System can be described by its location within a branching family tree.
-                At the top of this tree is a single <b>author</b> with one or more <b>projects</b>, which collect works under a single unifying theme or idea.
-                Projects are then partitioned into <b>concepts</b>, which are certain approaches to tackling the project.
-                Concepts are partitioned into <b>volumes</b>, which are self-contained works which attempt to tackle some or all of the concept, and volumes are partitioned into <b>versions</b>, which are specific attempts at rendering them, with small differences in approach but the same conceptual underpinnings.
-                Finally, versions are partitioned into <b>drafts</b>, which often only vary from one another in minor ways, featuring refinements and edits as a version is moved towards completion.
-                <b>Parts</b> may be further described as excerpts or portions of drafts.
-            </p>
-            <pre>Author > Project > Concept > Volume > Version > Draft > Part</pre>
-            <p>
-                The location of a work within this tree must be unique in any given implementation; that is, a work must only be describable by one combination of author, project, concept, volume, version, draft, and part.
-            </p>
-            <section id="branches">
-                <h2>Branch descriptions</h2>
-                <section id="authors">
-                    <h3>Authors</h3>
-                    <p>
-                        Authors should be specified in a manner akin to that in <a href="http://taguri.org">Tag URIs</a>; that is, with a URL or email address (henceforth referred to as a <b>signature</b>), and a <b>date</b> under which that URL or email address was definitely assigned to the author(s) in question.
-                        Although the same author could hypothetically be specified using multiple signatures and/or dates, it is preferred that a single combination be chosen, even if it is predated by some of the works described; similarly, it is preferred that such a date be as nonspecific as possible (ie., only a year).
-                        Note also that signatures should be considered case-sensitive for the purposes of determining uniqueness.
-                    </p>
-                </section>
-                <section id="projects">
-                    <h3>Projects</h3>
-                    <p>
-                        Projects are a collection of works by an author under a unifying theme or idea.
-                        Every project must have the following attributes statically defined:
-                    </p>
-                    <ul>
-                        <li>An <b>index</b>, which must be a nonnegative integer.</li>
-                        <li>A <b>shortname</b>, which must be a string of characters, and should only use those characters which are unreserved by <a href="http://www.ietf.org/rfc/rfc3986.txt">the URI syntax</a>, with the additional requirements that shortnames must not contain periods, and must contain at least one non-digit character. It is recommended that shortnames avoid using underscores and tildes, but these are allowed. Shortnames are case-sensitive.</li>
-                    </ul>
-                    <p>
-                        These attributes must be unique within an author, and are immutable and not reassignable.
-                        There are no requirements for uniqueness of indices or shortnames between authors.
-                    </p>
-                </section>
-                <section id="subbranches">
-                    <h3>Concepts, volumes, versions, drafts, parts</h3>
-                    <p>
-                        Concepts, volumes, versions, drafts, and parts must each have a statically-defined <b>id</b>, which must match the form of either an index or a shortname.
-                        No two concepts, volumes, versions, drafts, or parts which share the same project, concept, volume, version, or draft, respectively, can have the same id, and ids are immutable and not reassignable.
-                        However, there are no requirements for the uniqueness of ids outside of this stipulation.
-                    </p>
-                    <p>
-                        Concepts, volumes, versions, drafts, and parts may also be given <b>labels</b>, which help to describe them.
-                        There are no requirements on the values of labels.
-                    </p>
-                </section>
+    <main>
+        <header>
+            <h2>The <abbr title="Branching Notational System">BNS</abbr></h2>
+            marrus.xyz (2016) : <a href="tag:marrus.xyz,2016:bns::BNS:3:1:2:01">017.C.I.2.01</a>
+        </header>
+        <p>
+            The Branching Notational System [BNS] is an organizational system under which I have organized my various projects.
+            It is designed to facilitate a canonical and machine-readible ordering system for projects, as well as generate a series of unique identifiers with a variety of representations.
+        </p>
+        <p>
+            Every work in the Branching Notational System can be described by its location within a branching family tree.
+            At the top of this tree is a single <b>author</b> with one or more <b>projects</b>, which collect works under a single unifying theme or idea.
+            Projects are then partitioned into <b>concepts</b>, which are certain approaches to tackling the project.
+            Concepts are partitioned into <b>volumes</b>, which are self-contained works which attempt to tackle some or all of the concept, and volumes are partitioned into <b>versions</b>, which are specific attempts at rendering them, with small differences in approach but the same conceptual underpinnings.
+            Finally, versions are partitioned into <b>drafts</b>, which often only vary from one another in minor ways, featuring refinements and edits as a version is moved towards completion.
+            <b>Parts</b> may be further described as excerpts or portions of drafts.
+        </p>
+        <pre>Author > Project > Concept > Volume > Version > Draft > Part</pre>
+        <p>
+            The location of a work within this tree must be unique in any given implementation; that is, a work must only be describable by one combination of author, project, concept, volume, version, draft, and part.
+        </p>
+        <section id="branches">
+            <h3>Branch descriptions</h3>
+            <section id="authors">
+                <h4>Authors</h4>
+                <p>
+                    Authors should be specified in a manner akin to that in <a href="http://taguri.org">Tag URIs</a>; that is, with a URL or email address (henceforth referred to as a <b>signature</b>), and a <b>date</b> under which that URL or email address was definitely assigned to the author(s) in question.
+                    Although the same author could hypothetically be specified using multiple signatures and/or dates, it is preferred that a single combination be chosen, even if it is predated by some of the works described; similarly, it is preferred that such a date be as nonspecific as possible (ie., only a year).
+                    Note also that signatures should be considered case-sensitive for the purposes of determining uniqueness.
+                </p>
             </section>
-            <section id="rendering">
-                <h2>Rendering</h2>
-                <section id="tag">
-                    <h3>Tag URIs</h3>
-                    <p>
-                        Tag URIs provide a mechanism for creating a unique URI for referencing a work that is machine-readable and works with technologies such as XML.
-                        <a href="http://www.ietf.org/rfc/rfc2234.txt">The ABNF syntax</a> for creating a BNS Tag URI is as follows:
-                    </p>
-                    <pre>tagURI = "tag:" author ":bns" [ path [ "#" fragment ] ]<br>author = signature "," date<br>signature = DNSname / emailAddress<br>DNSname = DNScomp *( "."  DNScomp )<br>DNScomp = alphaNum [ *( alphaNum / "-" ) alphaNum ]<br>emailAddress = 1*( alphaNum / "-" / "." / "_" ) "@" DNSname<br>date = year [ "-" month [ "-" day ] ]<br>year = 4DIGIT<br>month = 2DIGIT<br>day = 2DIGIT<br>path = "::" shortname *5( ":" id )<br>index = ( %x31-39 *DIGIT ) / "0" ; nonzero integers must not start with zero<br>id = index / shortname<br>shortname = *( noDigit / DIGIT ) noDigit *( noDigit / DIGIT )<br>noDigit = ALPHA / "-" / "_" / "~"</pre>
-                    <p>
-                        BNS Tag URIs must specify each component in order.
-                        Some examples follow:
-                    </p>
-                    <ul>
-                        <li><code>tag:mail@example.com,1999:bns::p1</code> &ndash; Project p1.</li>
-                        <li><code>tag:example.net,2006:bns</code> &ndash; The author associated with <code>example.net</code> in the year 2006.</li>
-                        <li><code>tag:mail@example.com,1999:bns::sam:2:1:3:28:appx</code> &ndash; Part 'appx' of Draft 28 of Version 3 of Volume I of Concept B of Project sam.</li>
-                    </ul>
-                </section>
-                <section id="verbose">
-                    <h3>Verbose syntax</h3>
-                    <p>
-                        The verbose syntax is designed to maintain the ordering of entries in a BNS implementation while providing a consistent, human-readable rendering.
-                        When applied to filesystems, the filesystem tree should reflect the tree created by the BNS, although branches which are only-children may be implied.
-                        Individual entries should follow this <a href="http://www.ietf.org/rfc/rfc2234.txt">ABNF syntax</a> (see the previous section for more definitions), presented with Unicode code points:
-                    </p>
-                    <pre>verbose = longauthor / project / concept / volume / version<br>         / draft / part<br>longauthor = signature SP "(" date ")"<br>project = longindex SP shortname<br>concept = %x43.6F.6E.63.65.70.74 SP ( alphaID<br>         / quotedShortname ) [ labelSuffix ]<br>volume = %x56.6F.6C.75.6D.65 SP ( romanID<br>         / quotedShortname ) [ labelSuffix ]<br>version = %x56.65.72.73.69.6F.6E SP ( index<br>         / quotedShortname ) [ labelSuffix ]<br>draft = %x44.72.61.66.74 SP ( medIndex<br>         / quotedShortname ) [ labelSuffix ]<br>part = %x50.61.72.74 SP ( lowerRomanID<br>         / quotedShortname ) [ labelSuffix ]<br>longIndex = 3DIGIT / ( %x31-39 3*DIGIT )<br>medIndex = 2DIGIT / ( %x31-39 2*DIGIT )<br>alphaID = 1*%x41-5A / "0"<br>romanID = 1*%x58 / ( *%x58 ( %x56 / ( %x49 %x56 )<br>         / ( %x56 %x49 %x56 ) / 1*3%x49 ) ) / "0"<br>lowerRomanID = 1*%x78 / ( *%x78 ( %x76 / ( %x69 %x76 )<br>         / ( %x76 %x69 %x76 ) / 1*3%x69 ) ) / "0"<br>quotedShortname = "'" shortname "'"<br>labelSuffix = SP %2013 SP %x201C label %x201D<br>label = 1*( %xA0-D7FF / %xF900-FDCF / %xFDF0-FFEF<br>         / %x10000-1FFFD / %x20000-2FFFD / %x30000-3FFFD<br>         / %x40000-4FFFD / %x50000-5FFFD / %x60000-6FFFD<br>         / %x70000-7FFFD / %x80000-8FFFD / %x90000-9FFFD<br>         / %xA0000-AFFFD / %xB0000-BFFFD / %xC0000-CFFFD<br>         / %xD0000-DFFFD / %xE1000-EFFFD )</pre>
-                    <p>
-                        The rules for utilizing this syntax are as follows:
-                    </p>
-                    <ul>
-                        <li>Names of authors take the form "signature (date)".</li>
-                        <li>Names of projects take the form "NNN shortcode", where "NNN" is the project index and at least three digits.</li>
-                        <li>
-                            Other entries begin with a string specifying the level in the tree ("Concept", "Volume", etc.), with the first letter capitalized and the remaining characters lowercase.
-                            This is followed by a space, then the id. String ids are surrounded by apostrophes, while the rending of integers varies depending on the kind of entry:
-                            <ul>
-                                <li>Concepts should be a capital letter from A to Z.</li>
-                                <li>Volumes should be a upper-roman numeral. "IV" should be used for 4, and "VIV" should be used for 9. "L", "C", "D", and "M" should not be used. (This ensures proper ordering under alphanumeric sorting algorithms).</li>
-                                <li>Versions should be one or more digits, with no leading zeros.</li>
-                                <li>Drafts should be two or more digits.</li>
-                                <li>Parts should be a lower-roman numeral, following the rules for volumes.</li>
-                            </ul>
-                        </li>
-                        <li>If labels have been assigned, they should be provided following the id, wrapped in left and right double-quotes, and preceded by an en-dash surrounded by spaces.</li>
-                    </ul>
-                    <p>
-                        Some examples follow:
-                    </p>
-                    <ul>
-                        <li><code>092 example</code> describes an example project with index 92.</li>
-                        <li><code>example.net (2006)</code> describes the author signified by example.net in 2006.</li>
-                        <li><code>Volume XVIV – “Example volume”</code> describes the nineteenth volume of something.</li>
-                    </ul>
-                </section>
-                <section id="abbreviated">
-                    <h3>Abbreviated syntax</h3>
-                    <p>Abbreviated BNS syntax is as follows:</p>
-                    <pre>aProject = [ longauthor SP ":" SP ] longIndex<br>aConcept = [ aProject "." ] ( alphaID / shortname )<br>aVolume = [ aConcept "." ] ( romanID / shortname )<br>aVersion = [ aVolume "." ] ( index / shortname )<br>aDraft = [ aVersion "."] ( medIndex / shortname )<br>aPart = [ aDraft "." ] ( lowerRomanID / shortname )</pre>
-                    <p>
-                        This syntax follows the integer rendering rules from the verbose syntax, but cuts out the extra content.
-                        Information which can be gathered from context may be left out.
-                    </p>
-                    <p>
-                        Here are some examples:
-                    </p>
-                    <ul>
-                        <li><code>015.B.I.2.03</code> &ndash; Draft 03 of Version 2 of Volume I of Concept B of Project 015 of some author.</li>
-                        <li><code>2.01.notes</code> &ndash; Part 'notes' of Draft 01 of Version 2 of some work.</li>
-                        <li><code>mail@example.com (1999) : 022.C.II</code> &ndash; Volume II of Concept C of Project 022 by mail@example.com (1999)</li>
-                    </ul>
-                </section>
+            <section id="projects">
+                <h4>Projects</h4>
+                <p>
+                    Projects are a collection of works by an author under a unifying theme or idea.
+                    Every project must have the following attributes statically defined:
+                </p>
+                <ul>
+                    <li>An <b>index</b>, which must be a nonnegative integer.</li>
+                    <li>A <b>shortname</b>, which must be a string of characters, and should only use those characters which are unreserved by <a href="http://www.ietf.org/rfc/rfc3986.txt">the URI syntax</a>, with the additional requirements that shortnames must not contain periods, and must contain at least one non-digit character. It is recommended that shortnames avoid using underscores and tildes, but these are allowed. Shortnames are case-sensitive.</li>
+                </ul>
+                <p>
+                    These attributes must be unique within an author, and are immutable and not reassignable.
+                    There are no requirements for uniqueness of indices or shortnames between authors.
+                </p>
             </section>
-        </main>
-    </div>
+            <section id="subbranches">
+                <h4>Concepts, volumes, versions, drafts, parts</h4>
+                <p>
+                    Concepts, volumes, versions, drafts, and parts must each have a statically-defined <b>id</b>, which must match the form of either an index or a shortname.
+                    No two concepts, volumes, versions, drafts, or parts which share the same project, concept, volume, version, or draft, respectively, can have the same id, and ids are immutable and not reassignable.
+                    However, there are no requirements for the uniqueness of ids outside of this stipulation.
+                </p>
+                <p>
+                    Concepts, volumes, versions, drafts, and parts may also be given <b>labels</b>, which help to describe them.
+                    There are no requirements on the values of labels.
+                </p>
+            </section>
+        </section>
+        <section id="rendering">
+            <h3>Rendering</h3>
+            <section id="tag">
+                <h4>Tag URIs</h4>
+                <p>
+                    Tag URIs provide a mechanism for creating a unique URI for referencing a work that is machine-readable and works with technologies such as XML.
+                    <a href="http://www.ietf.org/rfc/rfc2234.txt">The ABNF syntax</a> for creating a BNS Tag URI is as follows:
+                </p>
+                <pre>tagURI = "tag:" author ":bns" [ path [ "#" fragment ] ]<br>author = signature "," date<br>signature = DNSname / emailAddress<br>DNSname = DNScomp *( "."  DNScomp )<br>DNScomp = alphaNum [ *( alphaNum / "-" ) alphaNum ]<br>emailAddress = 1*( alphaNum / "-" / "." / "_" ) "@" DNSname<br>date = year [ "-" month [ "-" day ] ]<br>year = 4DIGIT<br>month = 2DIGIT<br>day = 2DIGIT<br>path = "::" shortname *5( ":" id )<br>index = ( %x31-39 *DIGIT ) / "0" ; nonzero integers must not start with zero<br>id = index / shortname<br>shortname = *( noDigit / DIGIT ) noDigit *( noDigit / DIGIT )<br>noDigit = ALPHA / "-" / "_" / "~"</pre>
+                <p>
+                    BNS Tag URIs must specify each component in order.
+                    Some examples follow:
+                </p>
+                <ul>
+                    <li><code>tag:mail@example.com,1999:bns::p1</code> &ndash; Project p1.</li>
+                    <li><code>tag:example.net,2006:bns</code> &ndash; The author associated with <code>example.net</code> in the year 2006.</li>
+                    <li><code>tag:mail@example.com,1999:bns::sam:2:1:3:28:appx</code> &ndash; Part 'appx' of Draft 28 of Version 3 of Volume I of Concept B of Project sam.</li>
+                </ul>
+            </section>
+            <section id="verbose">
+                <h4>Verbose syntax</h4>
+                <p>
+                    The verbose syntax is designed to maintain the ordering of entries in a BNS implementation while providing a consistent, human-readable rendering.
+                    When applied to filesystems, the filesystem tree should reflect the tree created by the BNS, although branches which are only-children may be implied.
+                    Individual entries should follow this <a href="http://www.ietf.org/rfc/rfc2234.txt">ABNF syntax</a> (see the previous section for more definitions), presented with Unicode code points:
+                </p>
+                <pre>verbose = longauthor / project / concept / volume / version<br>         / draft / part<br>longauthor = signature SP "(" date ")"<br>project = longindex SP shortname<br>concept = %x43.6F.6E.63.65.70.74 SP ( alphaID<br>         / quotedShortname ) [ labelSuffix ]<br>volume = %x56.6F.6C.75.6D.65 SP ( romanID<br>         / quotedShortname ) [ labelSuffix ]<br>version = %x56.65.72.73.69.6F.6E SP ( index<br>         / quotedShortname ) [ labelSuffix ]<br>draft = %x44.72.61.66.74 SP ( medIndex<br>         / quotedShortname ) [ labelSuffix ]<br>part = %x50.61.72.74 SP ( lowerRomanID<br>         / quotedShortname ) [ labelSuffix ]<br>longIndex = 3DIGIT / ( %x31-39 3*DIGIT )<br>medIndex = 2DIGIT / ( %x31-39 2*DIGIT )<br>alphaID = 1*%x41-5A / "0"<br>romanID = 1*%x58 / ( *%x58 ( %x56 / ( %x49 %x56 )<br>         / ( %x56 %x49 %x56 ) / 1*3%x49 ) ) / "0"<br>lowerRomanID = 1*%x78 / ( *%x78 ( %x76 / ( %x69 %x76 )<br>         / ( %x76 %x69 %x76 ) / 1*3%x69 ) ) / "0"<br>quotedShortname = "'" shortname "'"<br>labelSuffix = SP %2013 SP %x201C label %x201D<br>label = 1*( %xA0-D7FF / %xF900-FDCF / %xFDF0-FFEF<br>         / %x10000-1FFFD / %x20000-2FFFD / %x30000-3FFFD<br>         / %x40000-4FFFD / %x50000-5FFFD / %x60000-6FFFD<br>         / %x70000-7FFFD / %x80000-8FFFD / %x90000-9FFFD<br>         / %xA0000-AFFFD / %xB0000-BFFFD / %xC0000-CFFFD<br>         / %xD0000-DFFFD / %xE1000-EFFFD )</pre>
+                <p>
+                    The rules for utilizing this syntax are as follows:
+                </p>
+                <ul>
+                    <li>Names of authors take the form "signature (date)".</li>
+                    <li>Names of projects take the form "NNN shortcode", where "NNN" is the project index and at least three digits.</li>
+                    <li>
+                        Other entries begin with a string specifying the level in the tree ("Concept", "Volume", etc.), with the first letter capitalized and the remaining characters lowercase.
+                        This is followed by a space, then the id. String ids are surrounded by apostrophes, while the rending of integers varies depending on the kind of entry:
+                        <ul>
+                            <li>Concepts should be a capital letter from A to Z.</li>
+                            <li>Volumes should be a upper-roman numeral. "IV" should be used for 4, and "VIV" should be used for 9. "L", "C", "D", and "M" should not be used. (This ensures proper ordering under alphanumeric sorting algorithms).</li>
+                            <li>Versions should be one or more digits, with no leading zeros.</li>
+                            <li>Drafts should be two or more digits.</li>
+                            <li>Parts should be a lower-roman numeral, following the rules for volumes.</li>
+                        </ul>
+                    </li>
+                    <li>If labels have been assigned, they should be provided following the id, wrapped in left and right double-quotes, and preceded by an en-dash surrounded by spaces.</li>
+                </ul>
+                <p>
+                    Some examples follow:
+                </p>
+                <ul>
+                    <li><code>092 example</code> describes an example project with index 92.</li>
+                    <li><code>example.net (2006)</code> describes the author signified by example.net in 2006.</li>
+                    <li><code>Volume XVIV – “Example volume”</code> describes the nineteenth volume of something.</li>
+                </ul>
+            </section>
+            <section id="abbreviated">
+                <h4>Abbreviated syntax</h4>
+                <p>Abbreviated BNS syntax is as follows:</p>
+                <pre>aProject = [ longauthor SP ":" SP ] longIndex<br>aConcept = [ aProject "." ] ( alphaID / shortname )<br>aVolume = [ aConcept "." ] ( romanID / shortname )<br>aVersion = [ aVolume "." ] ( index / shortname )<br>aDraft = [ aVersion "."] ( medIndex / shortname )<br>aPart = [ aDraft "." ] ( lowerRomanID / shortname )</pre>
+                <p>
+                    This syntax follows the integer rendering rules from the verbose syntax, but cuts out the extra content.
+                    Information which can be gathered from context may be left out.
+                </p>
+                <p>
+                    Here are some examples:
+                </p>
+                <ul>
+                    <li><code>015.B.I.2.03</code> &ndash; Draft 03 of Version 2 of Volume I of Concept B of Project 015 of some author.</li>
+                    <li><code>2.01.notes</code> &ndash; Part 'notes' of Draft 01 of Version 2 of some work.</li>
+                    <li><code>mail@example.com (1999) : 022.C.II</code> &ndash; Volume II of Concept C of Project 022 by mail@example.com (1999)</li>
+                </ul>
+            </section>
+        </section>
+    </main>
 </body>
 </html>

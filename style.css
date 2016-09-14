@@ -4,24 +4,11 @@
 /*  GLOBAL RULES  */
 
 *:root {
-    color: #cccccc;
-    background: #0c0c0c;
-    font-family: "Unifont Upper", "Unifont", monospace;
-    font-size: 20px;
+    font-size: 12pt;
     font-synthesis: none;
-    line-height: 1.6;
-    text-align: left;
+    line-height: 1.75;
+    text-align: justify;
     quotes: "‘" "’" "“" "”";
-}
-
-*::selection {
-    color: #0c0c0c;
-    background: #f6d037;
-}
-
-*::-moz-selection {
-    color: #0c0c0c;
-    background: #f6d037;
 }
 
 @media print {
@@ -61,192 +48,25 @@
 html {
     margin: 0;
     padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+    min-height: calc(100vh - 42pt);
+    color: #702;
+    background: #D9A;
+}
+
+html[data-invert-colours] {
+    color: #702;
+    background: #125;
 }
 
 body {
-    position: absolute;
-    top: -10px;
-    left: -10px;
-    bottom: -10px;
-    right: -10px;
-    margin: 0;
-    border: 10px transparent solid;
-    padding: 76px 0px 76px 232px;
-    background-position: center center;
-    background-size: cover;
-    background-origin: border-box;
-    background-repeat: no-repeat;
-    overflow: hidden;
+    margin: auto;
+    padding: 21pt 12pt;
+    max-width: 363pt;
 }
 
-#header {
-    display: block;
-    position: absolute;
-    top: 14px;
-    left: 0;
-}
-
-#header a[href], #navigation a[href] {
-    display: block;
-    position: relative;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-}
-
-#header a[href]:hover, #navigation a[href]:hover {
-    opacity: 1;
-}
-
-#header a[href]:hover::before, #navigation a[href]:hover::before {
-    content: "–›";
-}
-
-#header a[href]::after, #navigation a[href]::after {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background-position: top left;
-    background-size: contain;
-    background-repeat: no-repeat;
-    content: "";
-}
-
-#header a[href] {
-    width: 384px;
-    height: 48px;
-    opacity: .83247;
-}
-
-#navigation {
-    display: block;
-    position: absolute;
-    top: 68px;
-    left: 12px;
-}
-
-#navigation a[href] {
-    margin: 0 0 4px;
-    width: 208px;
-    height: 32px;
-    opacity: .79875;
-}
-
-#header a[href="/"]::after {
-    background-image: url(images/logo.png);
-}
-
-#header a[href="/"]:hover::after {
-    background-image: url(images/logo.gif), url(images/logo.png);
-}
-
-#navigation a[href="/about"]::after {
-    background-image: url(images/menu-about.png);
-}
-
-#navigation a[href="/about"]:hover::after {
-    background-image: url(images/menu-about.gif), url(images/menu-about.png);
-}
-
-#navigation a[href="/languages"]::after {
-    background-image: url(images/menu-languages.png);
-}
-
-#navigation a[href="/languages"]:hover::after {
-    background-image: url(images/menu-languages.gif), url(images/menu-languages.png);
-}
-
-#navigation a[href="/games"]::after {
-    background-image: url(images/menu-games.png);
-}
-
-#navigation a[href="/games"]:hover::after {
-    background-image: url(images/menu-games.gif), url(images/menu-games.png);
-}
-
-#navigation a[href="/art"]::after {
-    background-image: url(images/menu-art.png);
-}
-
-#navigation a[href="/art"]:hover::after {
-    background-image: url(images/menu-art.gif), url(images/menu-art.png);
-}
-
-#navigation a[href="/writings"]::after {
-    background-image: url(images/menu-writings.png);
-}
-
-#navigation a[href="/writings"]:hover::after {
-    background-image: url(images/menu-writings.gif), url(images/menu-writings.png);
-}
-
-#navigation a[href="/marginalia"]::after {
-    background-image: url(images/menu-marginalia.png);
-}
-
-#navigation a[href="/marginalia"]:hover::after {
-    background-image: url(images/menu-marginalia.gif), url(images/menu-marginalia.png);
-}
-
-#content {
-    margin: 0 auto;
-    max-width: 604px;
-    height: 100%;
-}
-
-#tab {
-    cursor: pointer;
-}
-
-@media (max-width: 496px) {
-
-    body {
-        padding: 20px;
-        overflow-y: scroll;
-    }
-
-    #header {
-        position: static;
-        margin: -6px -20px;
-    }
-
-    #navigation {
-        position: static;
-        margin: 12px -8px;
-    }
-
-    #content {
-        height: auto;
-    }
-
-}
-
-@media (max-width: 384px) {
-
-    #header {
-        margin: -4px -20px;
-    }
-
-    #header a[href] {
-        width: 256px;
-        height: 32px;
-    }
-
-    #navigation {
-        margin: 16px -4px;
-    }
-
-    #navigation a[href] {
-        width: 104px;
-        height: 16px;
-    }
-
+html[data-invert-colours] body {
+    background: #D9A;
+    border: thick #125 double;
 }
 
 /*  SECTIONING  */
@@ -254,23 +74,9 @@ body {
 main {
     display: block;
     position: relative;
-    margin: 0;
-    padding: 32px;
-    height: calc(100% - 104px);
-    color: #3b3b3b;
-    background: rgba(255, 255, 255, .961);
-    overflow-x: hidden;
-    overflow-y: scroll;
-    transition: height .5s, padding-top .5s, padding-bottom .5s;
 }
 
-#content[data-collapsed] main {
-    height: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-}
-
-article, section, aside, nav, header, footer, div {
+article, section, aside, header, footer, div {
     display: block;
     clear: both;
     margin: 0;
@@ -278,67 +84,65 @@ article, section, aside, nav, header, footer, div {
 }
 
 aside, section {
-    margin: 32px 0;
-    text-align: left;
+    margin: 21pt 0;
 }
 
 aside {
-    color: #636363;
+    color: #ED4F6E;
 }
 
-main footer {
-    margin: 32px 0 0;
-    font-size: 16px;
-    text-align: right;
+header {
+    margin: 21pt 0 10.5pt;
+    font-family: "M+ 2p", "Unifont LANGDEV", "Unifont Upper", "Unifont", sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+body > header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    margin: 42pt -24pt 73.5pt;
+}
+
+nav {
+    display: block;
+    text-align: left;
+}
+
+main nav {
+    text-align: center;
 }
 
 blockquote > footer:last-child::before {
     content: "– ";
 }
 
-main header {
-    margin: 32px;
-    border-bottom-width: 3px;
-    border-bottom-style: solid;
-    border-bottom-color: #1c1c1c;
-    padding: 0 0 29px;
-    text-align: center;
-}
-
-main nav {
-    margin: 16px 0;
-}
-
-@media (max-width: 496px) {
-    main {
-        height: auto;
-    }
-}
-
 /*  TABLES  */
 
 caption {
     margin: 0;
-    padding: 8px 4px;
+    padding: 5.25pt 3pt;
 }
 
 table {
-    margin: 32px auto;
+    margin: 21pt auto;
     border-collapse: separate;
-    border-spacing: 4px 2px;
+    padding: 5.25pt 3pt;
     padding: 0;
     max-width: 100%;
     text-align: left;
 }
 
 thead {
-    color: #1c1c1c;
+    font-weight: 400;
     text-align: center;
 }
 
 tbody + tbody::before {
     display: table-row;
-    height: 32px;
+    height: 21pt;
     content: "";
 }
 
@@ -349,8 +153,8 @@ td > table:only-child {
 
 td, th {
     border: none;
-    border-radius: 2px;
-    padding: 2px;
+    border-radius: 1.5pt;
+    padding: 1.5pt;
     vertical-align: top;
 }
 
@@ -362,8 +166,8 @@ th {
 /*  LISTS  */
 
 ul, ol, dl {
-    margin: 4px 0;
-    padding: 0 0 0 32px;
+    margin: 5.25pt 0;
+    padding: 0 0 0 24pt;
     text-align: left;
 }
 
@@ -414,30 +218,30 @@ li li li li ol {
 dt {
     display: inline-block;
     float: left;
-    margin: 0 -6px;
-    padding: 0 6px;
-    color: #f5f5f5;
-    background: #e83f2c;
+    margin: 0 -3pt;
+    padding: 0 3pt;
+    color: #ECD;
+    background: #125;
 }
 
 dt + dt::before {
     content: ", ";
-    color: #cccccc;
+    color: #ECD;
 }
 
 dd {
-    margin: 0 0 0 32px;
+    margin: 0 0 0 24pt;
     padding: 0;
 }
 
 dd::before {
     display: inline;
     white-space: pre-wrap;
-    content: " : ";
+    content: " : ";
 }
 
 dd + dd::before {
-    content: "″ : ";
+    content: "″ : ";
 }
 
 dd:after {
@@ -451,14 +255,14 @@ dd:after {
 /*  BLOCK ELEMENTS  */
 
 blockquote {
-    margin: 32px 16px;
+    margin: 21pt 12pt;
     font-weight: 100;
 }
 
 figcaption {
-    margin: 4px 0;
-    color: #656565;
-    font-size: 16px;
+    margin: 5.25pt 0;
+    color: #924;
+    font-size: 10pt;
     text-align: center;
 }
 
@@ -479,43 +283,46 @@ main figure, main iframe, main img, main svg, main video {
 }
 
 figure, main figure {
-    margin: 32px auto;
+    margin: 21pt auto;
 }
 
 h1, h2, h3, h4, h5, h6 {
     margin: 0;
     padding: 0;
+    font-family: "M+ 2p", "Unifont LANGDEV", "Unifont Upper", "Unifont", sans-serif;
     text-align: left;
 }
 
 h1 {
     display: inline-block;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    padding: 10px;
-    font-size: 20px;
+    flex: none;
+    margin: 0 24pt;
+    padding: 21pt 12pt;
+    color: #125;
+    background: transparent;
+    font-size: 48pt;
+    font-weight: 900;
     line-height: 1;
     text-align: left;
-    min-width: 160px;
-    width: auto;
-    color: #1c1c1c;
-    background: rgba(255, 255, 255, .8);
-}
-
-h1::before {
-    content: "• ";
+    text-transform: uppercase;
 }
 
 h2 {
-    margin: 32px 0 16px;
-    font-size: 32px;
+    margin: 21pt 0 10.5pt;
+    font-size: 24pt;
+    font-weight: 900;
     line-height: 1;
     text-align: left;
 }
 
+header h2 {
+    margin: 0;
+}
+
 h3 {
-    margin: 32px 0 0;
+    margin: 21pt 0 0;
     font-size: inherit;
+    font-weight: 800;
     text-decoration: underline;
 }
 
@@ -530,7 +337,7 @@ hr {
     border: none;
     padding: 0;
     width: 100%;
-    height: 64px;
+    height: 63pt;
     background: none;
     overflow: hidden;
 }
@@ -538,10 +345,10 @@ hr {
 hr::after {
     display: block;
     position: absolute;
-    top: 16px;
+    top: 21pt;
     left: 0;
     right: 0;
-    height: 32px;
+    height: 21pt;
     color: #1c1c1c;
     text-align: center;
     white-space: pre;
@@ -570,23 +377,23 @@ p {
 }
 
 h3 + p, p + p {
-    text-indent: 48px;
+    text-indent: 24pt;
 }
 
 footer h3 + p, footer p + p {
-    margin-top: 20px;
+    margin-top: 10.5pt;
     text-indent: 0;
 }
 
 p::before {
-    color: #636363;
+    color: #125;
     text-indent: 0;
 }
 
 h3 + p::before, p + p::before {
     position: absolute;
     top: 0;
-    left: 16px;
+    left: 12pt;
     content: "¶";
 }
 
@@ -611,16 +418,17 @@ footer h3 + p::before, footer p + p::before {
 }
 
 pre {
-    margin: 32px 16px;
-    font-family: inherit;
-    color: #0c0c0c;
+    margin: 21pt 12pt;
+    font-family: "Unifont LANGDEV", "Unifont Upper", "Unifont", monospace;
+    font-weight: normal;
+    color: #ECD;
     white-space: pre-wrap;
 }
 
 pre::before, pre::after {
     display: block;
-    margin: 0 -32px;
-    color: #636363;
+    margin: 0 -12pt;
+    color: #125;
     content: "```";
 }
 
@@ -628,42 +436,23 @@ pre::before, pre::after {
 
 a[href] {
     text-decoration: none;
-    color: #e83f2c;
-    -webkit-touch-callout: none;
+    color: inherit;
+    transition: color .3s;
+}
+
+nav a[href]:hover {
+    color: #ECD;
 }
 
 main a[href] {
-    display: inline-block;
-    position: relative;
-    margin: 0 -6px;
-    padding: 0 6px;
-    height: 32px;
-    text-indent: 0;
-    -webkit-touch-callout: default;
+    display: inline;
+    color: #125;
+    text-decoration: underline;
+    text-decoration-style: dashed;
 }
 
 main a[href]:hover {
-    color: #f5f5f5;
-    background: url(images/link-bg.gif) top left / 256px 32px repeat;
-}
-
-main a[href]:hover::after {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: url(images/link-fg.gif) top left / 256px 32px repeat;
-    content: "";
-}
-
-main a[href] ~ a[href]:hover, main a[href] ~ a[href]:hover::after {
-    background-position: top center;
-}
-
-main a[href] ~ a[href] ~ a[href]:hover, main a[href] ~ a[href] ~ a[href]:hover::after {
-    background-position: top right;
+    color: #ECD;
 }
 
 @media print {
@@ -689,20 +478,23 @@ nav a[href] {
 }
 
 b {
-    color: #1c1c1c;
+    font-weight: 500;
+    color: #125;
 }
 
 cite {
     font-style: inherit;
+    font-weight: 200;
 }
 
 code {
     font-family: inherit;
-    color: #0c0c0c;
+    color: #ECD;
 }
 
 code::before, code::after {
-    content: "`";
+    font-family: "Unifont LANGDEV", "Unifont Upper", "Unifont", monospace;
+    font-weight: normal;
 }
 
 del {
@@ -710,14 +502,33 @@ del {
 }
 
 dfn {
-    color: #1c1c1c;
     font-style: inherit;
+    font-weight: 400;
 }
 
 em {
     font-style: inherit;
     text-decoration: underline;
-    text-decoration-style: wavy;
+}
+
+i {
+    font-style: inherit;
+    font-weight: 200;
+    color: #125;
+}
+
+i::before {
+    font-size: .75em;
+    line-height: 1;
+    vertical-align: super;
+    content: "｢"
+}
+
+i::after {
+    font-size: .75em;
+    line-height: 1;
+    vertical-align: sub;
+    content: "｣"
 }
 
 ins {
@@ -729,18 +540,24 @@ s {
 }
 
 small {
-    color: #636363;
     font-size: inherit;
+    font-weight: 200;
 }
 
 strong {
-    color: #1c1c1c;
     text-decoration: underline;
     text-decoration-style: double;
+    font-weight: 700;
 }
 
 sup {
     text-transform: uppercase;
+}
+
+h1 sub {
+    font-size: 24pt;
+    line-height: 0;
+    color: #ECD;
 }
 
 u {

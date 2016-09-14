@@ -1,10 +1,68 @@
 @charset "UTF-8";
 
-body {
-    font-family: "Unifont Upper", "Unifont", monospace;
-    font-weight: 400;
+*:root, body {
+    font-family: "M+ 1c", "Unifont LANGDEV", "Unifont Upper", "Unifont", sans-serif;
+    font-weight: 300;
     font-size: 1em;
     line-height: 1.5;
+}
+
+@font-face {
+  font-family: "M+ 1c";
+  src: local('M+ 1c thin'),
+       url('../fonts/mplus-1c-thin.woff') format('woff'),
+       url('../fonts/mplus-1c-thin.ttf')  format('truetype');
+  font-weight: 200;
+}
+@font-face {
+  font-family: "M+ 1c";
+  src: local('M+ 1c light'),
+       url('../fonts/mplus-1c-light.woff') format('woff'),
+       url('../fonts/mplus-1c-light.ttf')  format('truetype');
+  font-weight: 300;
+}
+@font-face {
+  font-family: "M+ 1c";
+  src: local('M+ 1c regular'),
+       url('../fonts/mplus-1c-regular.woff') format('woff'),
+       url('../fonts/mplus-1c-regular.ttf')  format('truetype');
+  font-weight: 400;
+}
+@font-face {
+  font-family: "M+ 1c";
+  src: local('M+ 1c medium'),
+       url('../fonts/mplus-1c-medium.woff') format('woff'),
+       url('../fonts/mplus-1c-medium.ttf')  format('truetype');
+  font-weight: 500;
+}
+@font-face {
+  font-family: "M+ 1c";
+  src: local('M+ 1c bold'),
+       url('../fonts/mplus-1c-bold.woff') format('woff'),
+       url('../fonts/mplus-1c-bold.ttf')  format('truetype');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "M+ 2p";
+  src: local('M+ 2p bold'),
+       url('../fonts/mplus-1c-bold.woff') format('woff'),
+       url('../fonts/mplus-1c-bold.ttf')  format('truetype');
+  font-weight: 700;
+}
+@font-face {
+  font-family: "M+ 2p";
+  src: local('M+ 2p heavy'),
+       url('../fonts/mplus-1c-heavy.woff') format('woff'),
+       url('../fonts/mplus-1c-heavy.ttf')  format('truetype');
+  font-weight: 800;
+}
+@font-face {
+  font-family: "M+ 2p";
+  src: local('M+ 2p black'),
+       url('../fonts/mplus-1c-black.woff') format('woff'),
+       url('../fonts/mplus-1c-black.ttf')  format('truetype');
+  font-weight: 900;
 }
 
 @font-face {
@@ -20,5 +78,13 @@ body {
   src: url('../fonts/Unifont-Upper.woff') format('woff'),
        url('../fonts/Unifont-Upper.ttf')  format('truetype');
   font-weight: 400;
-  unicode-range: U+10000-10FFFF;
+  unicode-range: U+10000-100FFF;
+}
+
+@font-face {
+  font-family: "Unifont LANGDEV";
+  src: url('../fonts/UnifontLANGDEV.woff') format('woff'),
+       url('../fonts/UnifontLANGDEV.ttf')  format('truetype');
+  font-weight: 400;
+  unicode-range: U+101000-1017FF;
 }
