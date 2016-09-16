@@ -23,15 +23,15 @@
 }
 
 *[title]:not([title=""]):not(a) {
-    border-bottom: dashed currentColor black;
+    border-bottom: dotted currentColor black;
     cursor: help;
 }
 
-@supports (text-decoration-style: dashed) {
+@supports (text-decoration-style: dotted) {
     *[title]:not([title=""]):not(a) {
         border: none;
         text-decoration-line: underline;
-        text-decoration-style: dashed;
+        text-decoration-style: dotted;
     }
 }
 
@@ -49,13 +49,13 @@ html {
     margin: 0;
     padding: 0;
     min-height: calc(100vh - 42pt);
-    color: #702;
-    background: #D9A;
+    color: #F30;
+    background: #114;
 }
 
 html[data-invert-colours] {
-    color: #702;
-    background: #125;
+    color: #F30;
+    background: #810;
 }
 
 body {
@@ -65,8 +65,8 @@ body {
 }
 
 html[data-invert-colours] body {
-    background: #D9A;
-    border: thick #125 double;
+    background: #114;
+    border: thick #810 double;
 }
 
 /*  SECTIONING  */
@@ -74,6 +74,7 @@ html[data-invert-colours] body {
 main {
     display: block;
     position: relative;
+    padding-bottom: 84pt;
 }
 
 article, section, aside, header, footer, div {
@@ -83,12 +84,22 @@ article, section, aside, header, footer, div {
     padding: 0;
 }
 
+article {
+    margin: 0 -30pt;
+    padding: 5.25pt 30pt;
+    color: #114;
+    background: #EDE;
+    border-radius: 5.25pt;
+    font-size: 11pt;
+    font-weight: 400;
+}
+
 aside, section {
     margin: 21pt 0;
 }
 
 aside {
-    color: #ED4F6E;
+    color: #A20;
 }
 
 header {
@@ -113,6 +124,13 @@ nav {
 
 main nav {
     text-align: center;
+}
+
+footer {
+    margin: 5.25pt 0;
+    color: #A20;
+    font-size: 10pt;
+    text-align: right;
 }
 
 blockquote > footer:last-child::before {
@@ -175,10 +193,6 @@ ul {
     list-style-type: circle;
 }
 
-nav ul {
-    list-style-type: none;
-}
-
 li ul {
     list-style-type: square;
 }
@@ -220,13 +234,12 @@ dt {
     float: left;
     margin: 0 -3pt;
     padding: 0 3pt;
-    color: #ECD;
-    background: #125;
+    color: #114;
+    background: #A20;
 }
 
 dt + dt::before {
     content: ", ";
-    color: #ECD;
 }
 
 dd {
@@ -255,13 +268,54 @@ dd:after {
 /*  BLOCK ELEMENTS  */
 
 blockquote {
-    margin: 21pt 12pt;
-    font-weight: 100;
+    position: relative;
+    margin: 21pt 0;
+    padding: 0 24pt;
+    color: #F30;
+}
+
+blockquote::before {
+    display: block;
+    position: absolute;
+    top: 5.25pt;
+    left: 0;
+    width: 24pt;
+    font-family: "M+ 2p", "Unifont LANGDEV", "Unifont Upper", "Unifont", sans-serif;
+    font-size: 24pt;
+    font-weight: 800;
+    line-height: 1;
+    text-align: center;
+    content: "“";
+}
+
+blockquote::after {
+    display: block;
+    position: absolute;
+    bottom: 5.25pt;
+    right: 0;
+    width: 24pt;
+    font-family: "M+ 2p", "Unifont LANGDEV", "Unifont Upper", "Unifont", sans-serif;
+    font-size: 24pt;
+    font-weight: 800;
+    line-height: 1;
+    text-align: center;
+    content: "„";
+}
+
+blockquote blockquote {
+    margin: 10.5pt 0;
+    padding: 0 12pt 0 11pt;
+    border-left: 1pt currentColor solid;
+    font-weight: 200;
+}
+
+blockquote blockquote::before, blockquote blockquote::after {
+    content: none;
 }
 
 figcaption {
     margin: 5.25pt 0;
-    color: #924;
+    color: #A20;
     font-size: 10pt;
     text-align: center;
 }
@@ -298,7 +352,7 @@ h1 {
     flex: none;
     margin: 0 24pt;
     padding: 21pt 12pt;
-    color: #125;
+    color: #F30;
     background: transparent;
     font-size: 48pt;
     font-weight: 900;
@@ -311,7 +365,7 @@ h2 {
     margin: 21pt 0 10.5pt;
     font-size: 24pt;
     font-weight: 900;
-    line-height: 1;
+    line-height: 1.09375;
     text-align: left;
 }
 
@@ -321,13 +375,32 @@ header h2 {
 
 h3 {
     margin: 21pt 0 0;
+    font-size: 21pt;
+    font-weight: 800;
+    line-height: 1;
+}
+
+h3::after {
+    content: ":";
+}
+
+h4 {
+    margin: 21pt 0 0;
     font-size: inherit;
     font-weight: 800;
     text-decoration: underline;
 }
 
-h3::after {
-    content: ":";
+h5 {
+    margin: 10.5pt 0 0;
+    font-size: inherit;
+    font-weight: 700;
+}
+
+h6 {
+    margin: 0;
+    font-size: inherit;
+    font-weight: 700;
 }
 
 hr {
@@ -349,7 +422,7 @@ hr::after {
     left: 0;
     right: 0;
     height: 21pt;
-    color: #1c1c1c;
+    color: #A20;
     text-align: center;
     white-space: pre;
     content: "*   *   *";
@@ -386,7 +459,7 @@ footer h3 + p, footer p + p {
 }
 
 p::before {
-    color: #125;
+    color: #810;
     text-indent: 0;
 }
 
@@ -421,15 +494,19 @@ pre {
     margin: 21pt 12pt;
     font-family: "Unifont LANGDEV", "Unifont Upper", "Unifont", monospace;
     font-weight: normal;
-    color: #ECD;
+    color: #EDE;
     white-space: pre-wrap;
 }
 
 pre::before, pre::after {
     display: block;
     margin: 0 -12pt;
-    color: #125;
+    color: #810;
     content: "```";
+}
+
+article pre {
+    color: #F30;
 }
 
 /*  PHRASING  */
@@ -440,19 +517,18 @@ a[href] {
     transition: color .3s;
 }
 
-nav a[href]:hover {
-    color: #ECD;
+a[href]:hover {
+    color: #EDE;
 }
 
 main a[href] {
     display: inline;
-    color: #125;
     text-decoration: underline;
     text-decoration-style: dashed;
 }
 
-main a[href]:hover {
-    color: #ECD;
+nav a[href] {
+    text-decoration: none;
 }
 
 @media print {
@@ -467,10 +543,6 @@ main a[href]:hover {
 
 }
 
-nav a[href] {
-    text-decoration: none;
-}
-
 @supports (text-decoration-style: dotted) {
     abbr {
         border: none;
@@ -479,17 +551,20 @@ nav a[href] {
 
 b {
     font-weight: 500;
-    color: #125;
+    color: #EDE;
+}
+
+article b, article code, article i {
+    color: #F30;
 }
 
 cite {
     font-style: inherit;
-    font-weight: 200;
 }
 
 code {
     font-family: inherit;
-    color: #ECD;
+    color: #EDE;
 }
 
 code::before, code::after {
@@ -506,6 +581,10 @@ dfn {
     font-weight: 400;
 }
 
+article dfn {
+    font-weight: 500;
+}
+
 em {
     font-style: inherit;
     text-decoration: underline;
@@ -514,21 +593,23 @@ em {
 i {
     font-style: inherit;
     font-weight: 200;
-    color: #125;
+    color: #EDE;
 }
 
-i::before {
-    font-size: .75em;
-    line-height: 1;
-    vertical-align: super;
-    content: "｢"
+article i {
+    font-weight: 300;
 }
 
-i::after {
-    font-size: .75em;
-    line-height: 1;
-    vertical-align: sub;
-    content: "｣"
+h1 i, h2 i {
+    font-weight: 800;
+}
+
+h3 i, h4 i, h5 i, h6 i {
+    font-weight: 700;
+}
+
+i::before, i::after {
+    content: "'"
 }
 
 ins {
@@ -544,6 +625,10 @@ small {
     font-weight: 200;
 }
 
+article small {
+    font-weight: 300;
+}
+
 strong {
     text-decoration: underline;
     text-decoration-style: double;
@@ -557,7 +642,7 @@ sup {
 h1 sub {
     font-size: 24pt;
     line-height: 0;
-    color: #ECD;
+    color: #EDE;
 }
 
 u {
