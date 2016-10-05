@@ -64,11 +64,6 @@ body {
     max-width: 363pt;
 }
 
-html[data-invert-colours] body {
-    background: #114;
-    border: thick #810 double;
-}
-
 /*  SECTIONING  */
 
 main {
@@ -519,6 +514,10 @@ a[href] {
 
 a[href]:hover {
     color: #EDE;
+}
+
+article a[href]:hover {
+    color: #A20;
 }
 
 main a[href] {
