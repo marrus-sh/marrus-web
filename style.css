@@ -516,8 +516,12 @@ a[href]:hover {
     color: #EDE;
 }
 
-article a[href]:hover {
+article a[href] {
     color: #A20;
+}
+
+article a[href]:hover {
+    color: #F30;
 }
 
 main a[href] {
@@ -577,10 +581,6 @@ del {
 
 dfn {
     font-style: inherit;
-    font-weight: 400;
-}
-
-article dfn {
     font-weight: 500;
 }
 
@@ -591,12 +591,8 @@ em {
 
 i {
     font-style: inherit;
-    font-weight: 200;
-    color: #EDE;
-}
-
-article i {
     font-weight: 300;
+    color: #EDE;
 }
 
 h1 i, h2 i {
@@ -622,10 +618,6 @@ s {
 small {
     font-size: inherit;
     font-weight: 200;
-}
-
-article small {
-    font-weight: 300;
 }
 
 strong {
