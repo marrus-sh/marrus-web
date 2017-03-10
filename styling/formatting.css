@@ -73,7 +73,11 @@ body > header p, body > a[href] > header p {
 /*  SECTIONING  */
 
 aside {
-  color: #948d87;
+  font-family: "Catamaran", sans-serif;
+  font-weight: 100;
+  line-height: 1.25;
+  text-align: left;
+  color: #75706a;
 }
 
 footer {
@@ -301,13 +305,24 @@ em {
   text-decoration: underline;
 }
 
-i {
+i, u {
   color: #302f2b;
+}
+
+aside i, aside u {
+  color: #75706a;
+}
+
+i {
   font-style: inherit;
 }
 
-i::before, i::after {
-  content: "'";
+i::before {
+  content: open-quote;
+}
+
+i::after {
+  content: close-quote;
 }
 
 ins {
@@ -335,7 +350,6 @@ sup {
 }
 
 u {
-  color: #302f2b;
   text-decoration: underline;
   text-decoration-style: wavy;
 }

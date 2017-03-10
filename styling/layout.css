@@ -76,7 +76,7 @@ article, section, aside, header, footer, div {
 }
 
 aside, nav {
-  margin: .675rem 0;
+  margin: .675rem 1rem;
 }
 
 blockquote > footer:last-child::before {
