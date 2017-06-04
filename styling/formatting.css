@@ -3,10 +3,9 @@
 /*  GLOBAL RULES  */
 
 *:root {
-  font-family: "Lusitana", "Junicode", "Iowan Old Style", "Hoefler Text", "Unifont LANGDEV", "Unifont Upper", "Unifont", serif;
+  font-family: "Crimson Text", "Junicode", "Iowan Old Style", "Hoefler Text", "Unifont LANGDEV", "Unifont Upper", "Unifont", serif;
   font-size: large;
   font-weight: 400;
-  line-height: 1.35;
   font-synthesis: none;
   text-align: justify;
   quotes: "‘" "’" "“" "”";
@@ -47,7 +46,7 @@ html, body {
 }
 
 body > header, body > a[href] > header {
-  font-family: "Catamaran", sans-serif;
+  font-family: "Catamaran", "Unifont LANGDEV", "Unifont Upper", "Unifont", sans-serif;
 }
 
 body > header h1, body > a[href] > header h1 {
@@ -73,7 +72,7 @@ body > header p, body > a[href] > header p {
 /*  SECTIONING  */
 
 aside {
-  font-family: "Catamaran", sans-serif;
+  font-family: "Catamaran", "Unifont LANGDEV", "Unifont Upper", "Unifont", sans-serif;
   font-weight: 100;
   line-height: 1.25;
   text-align: left;
@@ -163,7 +162,7 @@ li li li li ol {
 /*  BLOCK ELEMENTS  */
 
 blockquote::before, blockquote::after {
-  font-family: "Catamaran", sans-serif;
+  font-family: "Catamaran", "Unifont LANGDEV", "Unifont Upper", "Unifont", sans-serif;
   font-size: 2em;
   font-weight: 800;
   line-height: 1;
@@ -177,7 +176,7 @@ figcaption {
 
 h1, h2, h3, h4, h5, h6 {
   color: #1f1a14;
-  font-family: "Catamaran", sans-serif;
+  font-family: "Catamaran", "Unifont LANGDEV", "Unifont Upper", "Unifont", sans-serif;
   font-weight: 800;
   text-align: left;
 }
@@ -314,23 +313,23 @@ aside i, aside u {
 }
 
 i {
-  font-style: inherit;
-}
-
-i::before {
-  content: open-quote;
-}
-
-i::after {
-  content: close-quote;
+  font-style: italic;
 }
 
 ins {
   text-decoration: underline;
 }
 
+kbd {
+  font-family: "Unifont LANGDEV", "Unifont Upper", "Unifont", monospace;
+}
+
 s {
   text-decoration: line-through;
+}
+
+samp {
+  font-family: "Unifont LANGDEV", "Unifont Upper", "Unifont", monospace;
 }
 
 small {

@@ -251,16 +251,8 @@ h3 {
   margin: 2.7rem 0 .675rem;
 }
 
-h3::after {
-  content: ":";
-}
-
 h4 {
   margin: 1.35rem 0 .675rem;
-}
-
-h4::after {
-  content: ".";
 }
 
 h5 {
