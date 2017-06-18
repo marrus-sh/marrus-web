@@ -1,0 +1,433 @@
+---
+layout        : "post"
+title         : "Mastodon Wishlist (1/?)"
+excerpt       : "Having been on Mastodon now for like eight months or so, I decided to write up some of the features that I've thought would be cool to have. Some of these have already been proposed, some are things I've just sorta gone <i>wouldn't it be cool if…</i> on."
+date          : "2017-06-17 03:50:00 -0700"
+tags          : "ideas"
+category      : "Mastodon"
+---
+
+<p>
+  Having been on Mastodon now for like eight months or so, I decided to write up some of the features that I've thought would be cool to have.
+  Some of these have already been proposed, some are things I've just sorta gone <i>wouldn't it be cool if…</i> on.
+<p>
+  This list is by no means comprehensive, and I'll probably think of more the second this is published, but this gives me something to look back on and say “Hey, whatever happened to that?” lol.
+
+<section id="pinned-toots">
+
+  <h3>Pinned toots</h3>
+
+  <h4>Idea:</h4>
+
+  <p>
+    Most of us probably already know what pinned toots are:
+    They're toots that are pinned to the top of your profile page.
+    Twitter has had them with tweets for quite some time.
+  <p>
+    This is really important, especially for artists, both because bio space is at a premium right now, and because unlike bios a pinned toot can be boosted and replied to, and have media attachments.
+    (Of course, private or nonrebloggable pinned toots are an option too.)
+  <p>
+    Providing multiple pinned toots, or different pinned toots for different audiences, or perhaps an entire "featured" timeline that's distinct from the normal user timeline, are all expansions on this idea, but even with just one pinned toot you could provide links to other toots from there.
+
+  <h4>Implementation:</h4>
+
+  <p>
+    In <a href="https://github.com/tootsuite/mastodon/issues/306">the original issue</a> for this idea I suggested using a <code>"type": "pinned"</code> Portable Contacts <code>url</code> to provide pinned toots.
+    This is backwards-compatible, federates, and is allowed by the Portable Contacts spec.
+
+  <figure>
+    <pre>
+"urls": [
+    {
+        "value": "https://mastodon.social/users/marrus_sh/updates/312820",
+        "type": "pinned"
+    }
+]
+    </pre>
+    <figcaption>I have no idea how Portable Contacts information is shared but here's a mock-up of what it might look like.</figcaption>
+  </figure>
+
+  <p>
+    Alternatively, instead of storing pinned toot information in a user's contact information, it might be better to have an entire separate "featured timeline", which toots could be added to and removed from at a user's request (eg by clicking a button).
+    The specifics of retreiving and displaying this timeline are beyond me but I can't imagine why it couldn't be done.
+
+  <p>
+    The current GitHub Issue for pinned toots is <a href="https://github.com/tootsuite/mastodon/issues/649">here</a>.
+
+</section>
+<section id="custom-metadata">
+
+  <h3>Custom user metadata</h3>
+
+  <h4>Idea:</h4>
+
+  <p>
+    A number of folks have expressed the desire to include pronoun information, websites, other accounts, Myers-Briggs information, birthdays, horoscopes, etc in their profile in a more visible manner.
+    Consequently, <a href="https://github.com/tootsuite/mastodon/issues/232">I proposed</a> adding a number (3–5) of configurable key-value user metadata pairs to the profile settings page, which would then show up on profiles.
+
+    <figure>
+      <img alt="Mockup for user metadata settings" src="{{site.blog_url}}/media/2017-06-17-user-metadata-mockup.png">
+      <img alt="Mockup for user metadata profiles" src="{{site.blog_url}}/media/2017-06-17-user-metadata-profile.png">
+      <figcaption>My original mockup</figcaption>
+    </figure>
+
+    <h4>Implementation:</h4>
+
+    <p>
+      The problem with this one is that Portable Contacts doesn't currently provide a way of distributing custom metadata information.
+      In order to stay backwards-compatible, one option for implementing this is to include YAML frontmatter in user bios:
+
+    <figure>
+      <pre>
+---
+pronouns: "she/her"
+website: "http://marrus.xyz"
+===
+This is my bio. I can put whatever I want here.
+      </pre>
+      <figcaption>YAML mockup</figcaption>
+    </figure>
+
+    <p>
+      This frontmatter could be easily caught and processed by frontends which supported it, and displayed verbatim by those which didn't.
+      YAML is human-readable, and users on servers which don't implement this in-software could even type it in themselves.
+
+    <aside>
+      <p>
+        <b>Note:</b> For ease-of-processing and to prevent any unexpected wildness, the YAML should be restricted to associating string keys with string values, and nothing more.
+    </aside>
+
+    <p>
+      Mastodon currently sends user bio information in HTML, so another option would be to hide metadata information in JSON inside the user bio:
+
+    <figure>
+      <pre>
+&lt;script type="text/plain" class="user-metadata">
+{
+  "pronouns": "she/her",
+  "website": "http://marrus.xyz"
+}
+&lt;/script>
+This is my bio. I can put whatever I want here.
+      </pre>
+      <figcaption>JSON mockup</figcaption>
+    </figure>
+
+    <p>
+      This solution is easier for frontends to process, but because the <code>&lt;script></code> tag should be stripped by any nonconforming server, it won't be available to those users whose servers don't support it.
+
+</section>
+<section id="multiple-frontend-support">
+
+  <h3>Multiple frontend support</h3>
+
+  <h4>Idea:</h4>
+
+  <p>
+    Some users like a more Tweetdeck-style frontend, others don't.
+    Users should be able to choose which frontend they want to view Mastodon in when they visit the website.
+
+  <h4>Implementation:</h4>
+
+  <p>
+    I've <a href="https://github.com/heropunch/mastodon-ce/pull/1">already done this one</a>.
+    The problem is it breaks compatibility with anything upstream, and merge conflicts will abound.
+    There's no way around that.
+
+</section>
+<section id="instance-metadata">
+
+  <h3>Instance metadata</h3>
+
+  <h4>Idea:</h4>
+
+  <p>
+    The following pieces of instance metadata need to be provided to clients and there is no excuse for not doing so:
+
+  <ul>
+    <li>Maximum number of characters per toot
+    <li>Maximum media filesize
+    <li>Software version
+  </ul>
+
+  <p>
+    Clients should <em>have the option</em> of respecting an instance's unique culture, and these additional pieces of information would facilitate that:
+
+  <ul>
+    <li>Title
+    <li>Logo/icon
+    <li>Localization data (custom words for "toot", etc; this would need to <em>much</em> better standardized)
+    <li>Links (to the "about" page, and so forth)
+    <li>Site colors
+    <li>Client-specific information
+  </ul>
+
+  <p>
+    This was all <a href="https://github.com/tootsuite/mastodon/issues/669">pretty much shut down</a> when I proposed it, but I think it is essential for allowing instance customizations and cultures to flourish.
+
+  <h4>Implementation:</h4>
+
+  <p>
+    All of this metadata should be standardized and placed in a JSON file in a well-known location, for example <code>/instance.json</code>.
+    Client-specific information should be allowed if properly namespaced.
+    For example:
+
+  <figure>
+    <pre>
+{
+  "title": "I'm a Pirate!",
+  "chars": 800,
+  "max-filesize": 4000000,
+  }
+  "localization": {
+    "en": {
+      "account.posts": "Messages",
+      "column.home": "Deck",
+      "column.notifications": "Signals",
+      "column.public": "The Open Sea",
+      "compose_form.publish": "Send off",
+    }
+  }
+  "links": {
+    "about": "/about",
+    "more": "/about/more",
+    "terms": "/terms"
+  }
+  "mastodon": {
+    "version": "1.4.3",
+    "api": "/api/v1",
+    "clients": {
+      "http://marrus.xyz/labcoat": {
+        "simple": true
+      }
+    }
+  }
+}
+    </pre>
+    <figcaption>Sample <code>/instance.json</code></figcaption>
+  </figure>
+
+  <p>
+    Hypothetically, this <code>/instance.json</code> could be expanded to provide other API endpoints in addition to the Mastodon one at <code>/api/v1</code>, allowing the properly-configured Mastodon server to be used with eg GNU Social frontends or apps.
+
+</section>
+<section id="pictochat">
+
+  <h3>MastoPaint</h3>
+
+  <h4>Idea:</h4>
+
+  <p>
+    Essentially, PictoChat for Mastodon.
+    If that doesn't sound awesome, I don't know what to tell you.
+
+  <h4>Implementation:</h4>
+
+  <p>
+    There are a number of ways one could implement this, but here's a basic one:
+
+  <h5>basic implementation.</h5>
+
+  <p>
+    In short, this requires adding an additional media type; in addition to <code>image</code>, <code>video</code>, and <code>gifv</code> we would have <code>picto</code>.
+    Pictos are:
+
+  <ol>
+    <li>PNG images
+    <li>That are 1-bit (black &amp; white)
+    <li>With no transparency
+    <li>And of standardized dimensions [484x220]
+  </ol>
+
+  <p>
+    Specifically, pictos:
+
+  <ul>
+    <li>
+      MUST have an IDHR header which gives the following values:
+      <ul>
+        <li><b>Width:</b> 484
+        <li><b>Height:</b> 220
+        <li><b>Bit depth:</b> 1
+        <li><b>Color type:</b> 0
+        <li><b>Compression method:</b> Any
+        <li><b>Filter method:</b> 0
+        <li><b>Interlace method:</b> 0
+      </ul>
+    <li>MUST NOT contain a PLTE palette.
+    <li>MUST NOT contain a tRNS transparency chunk
+    <li>MAY have a bKGD background color, which MUST be 1
+    <li>MAY have any number of other optional chunks
+  </ul>
+
+  <p>
+    <em>Whenever Mastodon receives an image matching these requirements, it is interpreted as a picto.</em>
+    For simplicity, frontends may also upload images to the API with <code>picto=true</code>; Mastodon will then create and store a conforming picto image server-side.
+
+  <p>
+    Frontends can style a picto to match their theme by adjusting the rendered values of the picto's bits.
+    Furthermore, frontends can allow copying another user's picto onto the picto canvas, letting them edit and create a new picto using that user's as a base.
+    This should generate a notification for the originating user.
+
+  <p>
+    Because pictos are just PNGs, servers which don't support pictos will interpret them as black-and-white images.
+
+</section>
+<section id="collapse-toots">
+
+  <h3>Collapse long toots</h3>
+
+  <h4>Idea:</h4>
+
+  <p>
+    If a toot is too long, it should be collapsed in the frontend to save space.
+
+  <h4>Implementation:</h4>
+
+  <p>
+    I <a href="https://github.com/tootsuite/mastodon/pull/658">already did this one too</a>, but it never got merged.
+    🤷
+
+</section>
+<section id="better-privacy">
+
+  <h3>Better privacy settings</h4>
+
+  <h4>Idea:</h4>
+
+  <p>
+    Right now Mastodon's privacy settings are opaque and hard to understand or communicate.
+    <code>direct</code>, <code>private</code>, <code>public</code>, and <code>unlisted</code> are vague and not well-defined privacy features.
+
+  <h4>Implementation:</h4>
+
+  <p>
+    Instead of using <code>direct</code>, <code>private</code>, <code>public</code>, or <code>unlisted</code>, privacy should be signified through binary flags:
+
+  <table>
+    <thead>
+      <tr>
+        <th>Value
+        <th>Meaning
+    <tbody>
+      <tr>
+        <td><code>0001</code>
+        <td>Listed in home timelines
+      <tr>
+        <td><code>0010</code>
+        <td>Listed in public timelines
+      <tr>
+        <td><code>0100</code>
+        <td>Is rebloggable
+      <tr>
+        <td><code>1000</code>
+        <td>Federates
+  </table>
+
+  <p>
+    The existing privacy settings would map to these as follows:
+
+  <table>
+    <thead>
+      <tr>
+        <th>Value
+        <th>Meaning
+    <tbody>
+      <tr>
+        <td><code>1000</code>
+        <td>direct
+      <tr>
+        <td><code>1001</code>
+        <td>private
+      <tr>
+        <td><code>1101</code>
+        <td>unlisted
+      <tr>
+        <td><code>1111</code>
+        <td>public
+  </table>
+
+  <p>
+    However, users should not be restricted to just these traditional settings.
+    For example, there is no good reason not to allow users to post toots which display in the public timelines but cannot be reblogged.
+
+  <p>
+    This list can easily be expanded; for example, if pictos were implemented, we might have:
+
+  <table>
+    <thead>
+      <tr>
+        <th>Value
+        <th>Meaning
+    <tbody>
+      <tr>
+        <td><code>10000</code>
+        <td>Picto can be copied/edited by others
+  </table>
+
+</section>
+<section id="reblog-message">
+
+  <h3>Reblog with message</h3>
+
+  <h4>Idea:</h4>
+
+  <p>
+    This is a compromise between the people who want quote-boosts and those who do not.
+    In essence, it allows for reblogging a toot with a custom CW; like with all CWs, @mentions, hashtags, and the like would not be functional inside the message.
+
+  <p>
+    This is, imo, an important safety feature, as it allows people to add CWs to content which might not have had it already before sharing with their followers.
+    However, it could also be used to add a quick commentary when sharing something.
+
+  <aside>
+    <p>
+      There is a chance for abuse with this feature, but as it doesn't allow @mentions and can't be nested, the potential is smaller than on other platforms and should be able to be left to moderators' discretion.
+  </aside>
+
+  <p>
+    Obviously, this feature would only be available on toots which are able to be reblogged.
+
+  <h4>Implementation:</h4>
+
+  <p>
+    This can be implemented just by adding an additional parameter to reblogs allowing them to overwrite the CW of the original toot.
+    Reblog notifications should also be sent when this occurs.
+
+</section>
+<section id="disabled-mentions">
+
+  <h3>Disabled mentions</h3>
+
+  <h4>Idea:</h4>
+
+  <p>
+    Users should be able to specify who can @mention them.
+    Potential options might be <code>everyone</code>, <code>local+followers</code>, <code>local</code>, <code>followers</code>, <code>nobody</code>.
+
+  <h4>Implementation:</h4>
+
+  <p>
+    There are a number of possible ways of handling an improper mention:
+
+  <ul>
+    <li>Throw an error and refuse to post the toot
+    <li>Redact the username of the mentioned user somehow
+    <li>Pretend like the user doesn't exist and print their username in full, without any link
+  </ul>
+
+  <p>
+    Of these, the first two are probably safer than the latter.
+
+  <p>
+    The complicating issues with this feature are in regards to federation:
+
+  <ol>
+    <li>This setting needs to federate, and so it needs to be encoded into a user's contact information somehow
+    <li>If a user is not in an instance's database, it will need to fetch the user and check their settings before allowing a mention of them in a toot
+  </ol>
+
+  <p>
+    Additionally, in the case of username autocomplete, username searches should be configurable to omit those users for whom mentions are disabled.
+
+</section>

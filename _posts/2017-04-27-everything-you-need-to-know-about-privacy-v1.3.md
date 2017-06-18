@@ -47,7 +47,7 @@ An exception to this is that Mastodon servers would always share their posts wit
 You may have seen this warning pop up when you were about to make a private post mentioning someone else:
 
 <figure>
-<img alt="Your private status will be delivered to mentioned users on icosahedron.website. Do you trust that server? Post privacy only works on Mastodon instances. If icosahedron.website is not a Mastodon instance, there will be no indiciation that your post is private, and it may be boosted or otherwise made visible to unintended recipients." src="{{site.blog_url}}/media/2015-04-27-are-you-sure.png">
+<img alt="Your private status will be delivered to mentioned users on icosahedron.website. Do you trust that server? Post privacy only works on Mastodon instances. If icosahedron.website is not a Mastodon instance, there will be no indiciation that your post is private, and it may be boosted or otherwise made visible to unintended recipients." src="{{site.blog_url}}/media/2017-04-27-are-you-sure.png">
 </figure>
 
 This lengthy explanation is Mastodon's complicated way of saying <q>We have no control what happens to this post once it leaves our servers.</q>
