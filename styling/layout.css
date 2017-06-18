@@ -79,6 +79,10 @@ aside, nav {
   margin: .675rem 1rem;
 }
 
+header aside, footer {
+  margin: .3375rem 0;
+}
+
 blockquote > footer:last-child::before {
   content: "– ";
 }
@@ -97,8 +101,12 @@ main {
   }
 }
 
-section {
-  margin: 0 0 4.05rem;
+article:not(:first-child), section:not(:first-child) {
+  margin-top: 2.7rem;
+}
+
+article:not(:last-child), section:not(:last-child) {
+  margin-bottom: 2.7rem;
 }
 
 /*  TABLES  */

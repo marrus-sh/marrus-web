@@ -3,9 +3,9 @@
 /*  GLOBAL RULES  */
 
 *:root {
-  font-family: "Crimson Text", "Junicode", "Iowan Old Style", "Hoefler Text", "Unifont LANGDEV", "Unifont Upper", "Unifont", serif;
+  font-family: "Cormorant Garamond", "Junicode", "Iowan Old Style", "Hoefler Text", "Unifont LANGDEV", "Unifont Upper", "Unifont", serif;
   font-size: large;
-  font-weight: 400;
+  font-weight: 500;
   font-synthesis: none;
   text-align: justify;
   quotes: "‘" "’" "“" "”";
@@ -35,7 +35,7 @@
 }
 
 *:lang(en) {
-  quotes: "‘" "’" "“" "”";
+  quotes: "“" "”" "‘" "’";
 }
 
 /*  PAGE  */
@@ -79,8 +79,24 @@ aside {
   color: #75706a;
 }
 
+header aside {
+  font-size .85em;
+}
+
 footer {
+  font-family: "Catamaran", "Unifont LANGDEV", "Unifont Upper", "Unifont", sans-serif;
+  font-size: .85em;
+  font-weight: 100;
+  line-height: 1.25;
   text-align: right;
+  color: #75706a;
+}
+
+blockquote > footer:last-child::before {
+  font-family: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
 }
 
 header {
@@ -159,7 +175,16 @@ li li li li ol {
   list-style-type: decimal;
 }
 
+dt {
+  font-weight: bold;
+}
+
 /*  BLOCK ELEMENTS  */
+
+blockquote {
+  font-weight: 300;
+  font-style: italic;
+}
 
 blockquote::before, blockquote::after {
   font-family: "Catamaran", "Unifont LANGDEV", "Unifont Upper", "Unifont", sans-serif;
@@ -170,8 +195,11 @@ blockquote::before, blockquote::after {
 }
 
 figcaption {
+  font-family: "Catamaran", "Unifont LANGDEV", "Unifont Upper", "Unifont", sans-serif;
   font-size: .85em;
+  font-weight: 100;
   text-align: center;
+  line-height: 1.25;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -187,8 +215,8 @@ h1 {
 }
 
 h2 {
-  font-size: 3em;
-  line-height: 1.3125;
+  font-size: 3.5em;
+  line-height: 1;
 }
 
 h3 {
@@ -224,7 +252,9 @@ p::before, p::after {
 
 pre {
   font-family: "Unifont LANGDEV", "Unifont Upper", "Unifont", monospace;
+  font-size: .85em;
   font-weight: normal;
+  line-height: 1;
   white-space: pre-wrap;
 }
 
@@ -253,7 +283,7 @@ main a[href] {
   text-decoration-style: dashed;
 }
 
-nav a[href] {
+header a[href], nav a[href] {
   text-decoration: none;
 }
 
@@ -286,7 +316,9 @@ cite {
 
 code {
   color: #1f1a14;
+  font-size: .85em;
   font-family: "Unifont LANGDEV", "Unifont Upper", "Unifont", monospace;
+  line-height: 1;
 }
 
 del {
@@ -309,11 +341,15 @@ i, u {
 }
 
 aside i, aside u {
-  color: #75706a;
+  color: #57534c;
 }
 
 i {
   font-style: italic;
+}
+
+aside i {
+  font-style: normal;
 }
 
 ins {
