@@ -317,10 +317,8 @@ footer h4 + p, footer h5 + p, footer h6 + p, footer p + p {
 }
 
 h4 + p::before, h5 + p::before, h6 + p::before, p + p::before {
-  display: block;
-  position: absolute;
-  top: .0875em;
-  left: 1em;
+  display: inline-block;
+  margin: 0 .25em 0 .5em;
   content: "¶";
 }
 

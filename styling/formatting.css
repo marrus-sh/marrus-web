@@ -256,15 +256,6 @@ p {
 p::before, p::after {
   color: #b8b3b0;
   line-height: 1;
-  text-indent: 0;
-}
-
-h4 + p, h5 + p, h6 + p, p + p {
-  text-indent: 2em;
-}
-
-footer h4 + p, footer h5 + p, footer h6 + p, footer p + p {
-  text-indent: 0;
 }
 
 pre {
