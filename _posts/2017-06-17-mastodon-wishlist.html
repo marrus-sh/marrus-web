@@ -50,7 +50,6 @@ category      : "Mastodon"
   <p>
     Alternatively, instead of storing pinned toot information in a user's contact information, it might be better to have an entire separate "featured timeline", which toots could be added to and removed from at a user's request (eg by clicking a button).
     The specifics of retreiving and displaying this timeline are beyond me but I can't imagine why it couldn't be done.
-
   <p>
     The current GitHub Issue for pinned toots is <a href="https://github.com/tootsuite/mastodon/issues/649">here</a>.
 
@@ -145,21 +144,21 @@ This is my bio. I can put whatever I want here.
     The following pieces of instance metadata need to be provided to clients and there is no excuse for not doing so:
 
   <ul>
-    <li>Maximum number of characters per toot
-    <li>Maximum media filesize
-    <li>Software version
+    <li> Maximum number of characters per toot
+    <li> Maximum media filesize
+    <li> Software version
   </ul>
 
   <p>
     Clients should <em>have the option</em> of respecting an instance's unique culture, and these additional pieces of information would facilitate that:
 
   <ul>
-    <li>Title
-    <li>Logo/icon
-    <li>Localization data (custom words for "toot", etc; this would need to <em>much</em> better standardized)
-    <li>Links (to the "about" page, and so forth)
-    <li>Site colors
-    <li>Client-specific information
+    <li> Title
+    <li> Logo/icon
+    <li> Localization data (custom words for "toot", etc; this would need to <em>much</em> better standardized)
+    <li> Links (to the "about" page, and so forth)
+    <li> Site colors
+    <li> Client-specific information
   </ul>
 
   <p>
@@ -233,10 +232,10 @@ This is my bio. I can put whatever I want here.
     Pictos are:
 
   <ol>
-    <li>PNG images
-    <li>That are 1-bit (black &amp; white)
-    <li>With no transparency
-    <li>And of standardized dimensions [484x220]
+    <li> PNG images
+    <li> That are 1-bit (black &amp; white)
+    <li> With no transparency
+    <li> And of standardized dimensions [484x220]
   </ol>
 
   <p>
@@ -246,29 +245,27 @@ This is my bio. I can put whatever I want here.
     <li>
       MUST have an IDHR header which gives the following values:
       <ul>
-        <li><b>Width:</b> 484
-        <li><b>Height:</b> 220
-        <li><b>Bit depth:</b> 1
-        <li><b>Color type:</b> 0
-        <li><b>Compression method:</b> Any
-        <li><b>Filter method:</b> 0
-        <li><b>Interlace method:</b> 0
+        <li> <b>Width:</b> 484
+        <li> <b>Height:</b> 220
+        <li> <b>Bit depth:</b> 1
+        <li> <b>Color type:</b> 0
+        <li> <b>Compression method:</b> Any
+        <li> <b>Filter method:</b> 0
+        <li> <b>Interlace method:</b> 0
       </ul>
-    <li>MUST NOT contain a PLTE palette.
-    <li>MUST NOT contain a tRNS transparency chunk
-    <li>MAY have a bKGD background color, which MUST be 1
-    <li>MAY have any number of other optional chunks
+    <li> MUST NOT contain a PLTE palette.
+    <li> MUST NOT contain a tRNS transparency chunk
+    <li> MAY have a bKGD background color, which MUST be 1
+    <li> MAY have any number of other optional chunks
   </ul>
 
   <p>
     <em>Whenever Mastodon receives an image matching these requirements, it is interpreted as a picto.</em>
     For simplicity, frontends may also upload images to the API with <code>picto=true</code>; Mastodon will then create and store a conforming picto image server-side.
-
   <p>
     Frontends can style a picto to match their theme by adjusting the rendered values of the picto's bits.
     Furthermore, frontends can allow copying another user's picto onto the picto canvas, letting them edit and create a new picto using that user's as a base.
     This should generate a notification for the originating user.
-
   <p>
     Because pictos are just PNGs, servers which don't support pictos will interpret them as black-and-white images.
 
@@ -350,7 +347,6 @@ This is my bio. I can put whatever I want here.
   <p>
     However, users should not be restricted to just these traditional settings.
     For example, there is no good reason not to allow users to post toots which display in the public timelines but cannot be reblogged.
-
   <p>
     This list can easily be expanded; for example, if pictos were implemented, we might have:
 
@@ -375,7 +371,6 @@ This is my bio. I can put whatever I want here.
   <p>
     This is a compromise between the people who want quote-boosts and those who do not.
     In essence, it allows for reblogging a toot with a custom CW; like with all CWs, @mentions, hashtags, and the like would not be functional inside the message.
-
   <p>
     This is, imo, an important safety feature, as it allows people to add CWs to content which might not have had it already before sharing with their followers.
     However, it could also be used to add a quick commentary when sharing something.
@@ -411,20 +406,19 @@ This is my bio. I can put whatever I want here.
     There are a number of possible ways of handling an improper mention:
 
   <ul>
-    <li>Throw an error and refuse to post the toot
-    <li>Redact the username of the mentioned user somehow
-    <li>Pretend like the user doesn't exist and print their username in full, without any link
+    <li> Throw an error and refuse to post the toot
+    <li> Redact the username of the mentioned user somehow
+    <li> Pretend like the user doesn't exist and print their username in full, without any link
   </ul>
 
   <p>
     Of these, the first two are probably safer than the latter.
-
   <p>
     The complicating issues with this feature are in regards to federation:
 
   <ol>
-    <li>This setting needs to federate, and so it needs to be encoded into a user's contact information somehow
-    <li>If a user is not in an instance's database, it will need to fetch the user and check their settings before allowing a mention of them in a toot
+    <li> This setting needs to federate, and so it needs to be encoded into a user's contact information somehow
+    <li> If a user is not in an instance's database, it will need to fetch the user and check their settings before allowing a mention of them in a toot
   </ol>
 
   <p>

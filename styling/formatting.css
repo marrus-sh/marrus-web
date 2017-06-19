@@ -8,7 +8,7 @@
   font-weight: 500;
   font-synthesis: none;
   text-align: justify;
-  quotes: "‘" "’" "“" "”";
+  quotes: "“" "”" "‘" "’";
 }
 
 @media print {
@@ -36,6 +36,10 @@
 
 *:lang(en) {
   quotes: "“" "”" "‘" "’";
+}
+
+blockquote:lang(en), blockquote *:lang(en) {
+  quotes: "‘" "’" "“" "”";
 }
 
 /*  PAGE  */
@@ -245,9 +249,22 @@ hr, hr::after {
   white-space: pre;
 }
 
+p {
+  position: relative;
+}
+
 p::before, p::after {
   color: #b8b3b0;
   line-height: 1;
+  text-indent: 0;
+}
+
+h4 + p, h5 + p, h6 + p, p + p {
+  text-indent: 2em;
+}
+
+footer h4 + p, footer h5 + p, footer h6 + p, footer p + p {
+  text-indent: 0;
 }
 
 pre {
@@ -270,19 +287,23 @@ svg {
 a[href] {
   color: inherit;
   text-decoration: none;
+  -webkit-text-decoration-color: inherit;
   text-decoration-color: inherit;
   transition: color .3s;
+  transition: color .3s, -webkit-text-decoration-color .3s;
   transition: color .3s, text-decoration-color .3s;
 }
 
 a[href]:hover {
   color: #302f2b;
+  -webkit-text-decoration-color: transparent;
   text-decoration-color: transparent;
 }
 
 main a[href] {
   display: inline;
   text-decoration: underline;
+  -webkit-text-decoration-style: dashed;
   text-decoration-style: dashed;
 }
 
@@ -314,7 +335,11 @@ b {
 }
 
 cite {
-  font-style: inherit;
+  font-style: italic;
+}
+
+cite.small {
+  font-style: in
 }
 
 code {
@@ -385,6 +410,7 @@ small {
 strong {
   color: #1f1a14;
   text-decoration: underline;
+  -webkit-text-decoration-style: double;
   text-decoration-style: double;
   font-weight: 700;
 }
@@ -395,5 +421,6 @@ sup {
 
 u {
   text-decoration: underline;
+  -webkit-text-decoration-style: wavy;
   text-decoration-style: wavy;
 }

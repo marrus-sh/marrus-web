@@ -317,28 +317,11 @@ footer h4 + p, footer h5 + p, footer h6 + p, footer p + p {
 }
 
 h4 + p::before, h5 + p::before, h6 + p::before, p + p::before {
-  display: inline-block;
-  margin: 0 .75em;
-  vertical-align: .0875em;
+  display: block;
+  position: absolute;
+  top: .0875em;
+  left: 1em;
   content: "¶";
-}
-
-blockquote p::before, blockquote p + p::before {
-  display: inline-block;
-  position: relative;
-  left: .5em;
-  margin: 0;
-  width: 0;
-  vertical-align: baseline;
-  content: open-quote;
-}
-
-blockquote p:not(:last-of-type)::after {
-  content: no-close-quote;
-}
-
-blockquote p:last-of-type::after {
-  content: close-quote;
 }
 
 footer h4 + p::before, footer h5 + p::before, footer h6 + p::before, footer p + p::before {
