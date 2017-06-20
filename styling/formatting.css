@@ -245,6 +245,7 @@ h6 {
 }
 
 hr, hr::after {
+  color: inherit;
   text-align: center;
   white-space: pre;
 }
@@ -327,10 +328,6 @@ b {
 
 cite {
   font-style: italic;
-}
-
-cite.small {
-  font-style: in
 }
 
 code {
