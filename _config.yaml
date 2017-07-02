@@ -2,7 +2,7 @@ title         : "Ledger"
 url           : "http://marrus.xyz"
 author        : "Gô SHOEMAKE"
 blog_url      : "/ledger"
-description   : "Gô's blog'"
+description   : "Gô's blog"
 lang          : "en"
 permalink     : "/ledger/:categories/:title-0:year:month:day.html"
 paginate      : 7
