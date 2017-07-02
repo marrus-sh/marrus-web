@@ -76,9 +76,6 @@ body > header p, body > a[href] > header p {
 /*  SECTIONING  */
 
 aside {
-  font-family: "Catamaran", "Unifont LANGDEV", "Unifont Upper", "Unifont", sans-serif;
-  font-weight: 100;
-  line-height: 1.25;
   text-align: left;
   color: #75706a;
 }
@@ -252,6 +249,7 @@ hr, hr::after {
 
 p {
   position: relative;
+  text-align: justify;
 }
 
 p::before, p::after {
@@ -367,8 +365,16 @@ i {
   font-style: italic;
 }
 
-aside i, blockquote i {
+blockquote i {
   font-style: normal;
+}
+
+footer i::before, figcaption i::before, h1 i::before, h2 i::before, h3 i::before, h4 i::before, h5 i::before, h6 i::before {
+  content: no-open-quote open-quote;
+}
+
+footer i::after, figcaption i::after, h1 i::after, h2 i::after, h3 i::after, h4 i::after, h5 i::after, h6 i::after {
+  content: close-quote no-close-quote;
 }
 
 ins {
@@ -405,6 +411,7 @@ strong {
 
 sup {
   text-transform: uppercase;
+  line-height: 0;
 }
 
 u {
