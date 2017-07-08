@@ -75,12 +75,20 @@ article, section, aside, header, footer, div {
   padding: 0;
 }
 
-aside, nav {
+nav {
   margin: .675rem 1rem;
+}
+
+aside {
+  margin: .3375rem 0;
+  border: thick currentColor double;
+  padding: .3375rem 1rem;
 }
 
 header aside, footer {
   margin: .3375rem 0;
+  border: none;
+  padding: 0;
 }
 
 blockquote > footer:last-child::before {
