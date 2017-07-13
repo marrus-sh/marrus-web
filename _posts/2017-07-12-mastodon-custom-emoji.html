@@ -1,0 +1,210 @@
+---
+layout        : "post"
+title         : "Custom Emoji for Mastodon"
+excerpt       : "So in <code>glitch-soc</code> recently an idea that's been talked about A Bunch is custom instance emoji for Mastodon. The purpose of this post is to give a rough outline of what that would look like and how it might get implemented."
+date          : "2017-07-12 19:40:00 -0700"
+tags          : "ideas"
+category      : "Mastodon"
+---
+
+<p>
+    So in <code>glitch-soc</code> recently an idea that's been talked about A Bunch is custom instance emoji for Mastodon.
+    The purpose of this post is to give a rough outline of what that would look like and how it might get implemented.
+
+<section id="plan">
+
+    <h3>The Plan</h3>
+
+    <p>
+        When discussing custom emoji, a number of questions have come up, such as:
+
+    <ol>
+        <li> Who gets to define them?
+        <li> How will they be inserted by users?
+        <li> How will they be internally represented?
+        <li> Will they be federated and if so how?
+    </ol>
+
+    <p>
+        For the first of these questions, our rough consensus is to allow new-emoji-definition only at an instance level, ie by admins.
+        This (a) greatly eases implementation, and also (b) helps to prevent abuse (unsavory emojis, emojis stolen without credit, etc).
+        For the second question, shortcodes remain a convenient means of emoji insertion, and it shouldn't be too difficult to expand this functionality for our own purposes.
+    <p>
+        Regarding the latter questions, we have decided to rely on the following methods for expanding the Unicode emoji set:
+
+    <dl>
+        <dt> Emojification of existing characters
+        <dd>
+            <p>
+                <cite><a href="http://www.unicode.org/reports/tr51/">Emoji 5.0</a></cite> expressly allows conforming implementations to support <q>a single code point outside of the basic emoji set</q> for display, input, or editing as an emoji.
+            <aside>
+                <p>
+                    For example, U+26E4 ⛤ PENTAGRAM is an existing Unicode code point.
+                    A Mastodon instance <strong>may</strong> elect to display this character as an emoji, instead of as text.
+                    However, this would make the text version of the character unavailable.
+            </aside>
+            <p>
+                Instances <strong>should</strong> only emojify characters which are pictographs.
+        <dt> Zero-Width Joiner (ZWJ) sequences
+        <dd>
+            <p>
+                In those cases where a predefined Unicode character is not available, instances can instead elect to support an emoji zero-width joiner (ZWJ) sequence, which combines multiple emoji characters into a single displayed glyph by placing U+200D ZERO WIDTH JOINER in-between them.
+                This mechanism is already in place for characters such as the pride flag (<code>🏳 + ZWJ + 🌈</code>), the eye in speech bubble (<code>👁 + ZWJ + 🗨</code>), and the various gender-variant forms of emojis, as well as emoji professions.
+            <p>
+                <cite><a href="http://www.unicode.org/reports/tr51/">Emoji 5.0</a></cite> expressly allows conforming implementations to support <q>an emoji zwj sequence that is not in [the <abbr title="Recommended for General Interchange">RGI</abbr> emoji ZWJ sequence set]</q> for display, input, or editing as an emoji.
+    </dl>
+
+    <p>
+        Following this method of implementation is advantageous for a number of reasons:
+
+    <ol>
+        <li> It is well-defined, already in use in other applications, and follows the Emoji spec
+        <li> It federates easily
+        <li> It provides recognizable fallbacks for unrecognized emoji (for emojified existing characters, their text representation; for ZWJ sequences, the characters used to compose them)
+        <li> It provides canonical Unicode sequences for custom emoji
+        <li> It <em>allows</em> multiple instances to use the same custom emoji without <em>requiring</em> them to do so
+        <li> It is not tied to any specific language
+    </ol>
+
+    <p>
+        If a custom emoji gains widespread adoption across instances, they could additionally pave the way for eventual Unicode inclusion.
+
+</section>
+
+<section id="implementation">
+
+    <h3>Implementation</h3>
+
+    <p>
+        I've broken the plan for implementing this feature into multiple steps, which should be completed in order.
+
+    <section id="shortcodes">
+
+        <h4>Step I : Shortcode support</h4>
+
+        <p>
+            The first thing which needs to be accomplished regarding custom emoji is allowing Mastodon instances to define their own emoji shortcodes.
+            For an instance to support this feature, emoji shortcodes <strong>must</strong> be replaced with their corresponding Unicode characters in statuses, bios, and usernames.
+            This replacement <strong>must</strong> take place for all local objects, and <strong>must not</strong> take place with regard to objects received from other instances (ie, through federation).
+        <p>
+            For statuses, this replacement <strong>should</strong> happen <em>prior</em> to the statuses being stored in the database.
+            That way, if an emoji shortcode is removed, the content of the status will not change.
+            For bios, usernames, and other situations, shortcodes <strong>may</strong> be stored in the database verbatim (to make later editing of these fields easier), but <strong>must</strong> be converted to emoji prior to federation.
+        <p>
+            A simple implementation of this might be to include an <code>emoji.yml</code> file in the root directory, which Mastodon then reads to perform the functions above.
+            A sample file is given below:
+
+        <figure>
+<pre>
+⚿:
+    shortcodes:
+        - squared_key
+        - square_key
+    src: /public/custom-emoji/squared_key.png
+🏈🍁:
+    shortcodes:
+        - canadian_football
+        - cfl
+    src: /public/custom-emoji/canadian_football.png
+</pre>
+            <figcaption>Sample <code>emoji.yml</code></figcaption>
+        </figure>
+
+        <p>
+        <p>
+            For simplicity, zero-width joiners <strong>should not</strong> be present in such a file, but added on processing given the following algorithm:
+
+        <ol>
+            <li>
+                <p>
+                    Let <code>emoji_or_sequence</code> be the one or more Unicode characters defining a custom emoji.
+            <li>
+                <p>
+                    If <code>emoji_or_sequence</code> contains any characters other than the following, abort with error:
+                <ul>
+                    <li> A symbol character. This can be checked using the RegExp <code>/\p{S}/</code>.
+                    <li> U+FE0F VARIATION SELECTOR-16.
+                </ul>
+            <li>
+                <p>
+                    Abort with error if any of the following conditions are true:
+                <ul>
+                    <li>
+                        <p>
+                            A U+FE0F VARIATION SELECTOR-16 character is preceded by a character which is not a symbol.
+                    <li>
+                        <p>
+                            The character sequence contains a skin tone modifier character (U+1F3FB..U+1F3FF EMOJI MODIFIER FITZPATRICK TYPE-1-2..EMOJI MODIFIER FITZPATRICK TYPE-6).
+                            Emoji modifiers are only valid for those characters defined in Unicode, and we have no easy means of testing this here.
+                </ul>
+            <li>
+                <p>
+                    Let <code>simplified_emoji_or_sequence</code> be <code>emoji_or_sequence</code> with every U+FE0F VARIATION SELECTOR-16 character removed.
+            <li>
+                <p>
+                    Return <code>simplified_emoji_or_sequence</code> with a U+200D ZERO WIDTH JOINER inserted in-between every two adjacent characters.
+                    (If the length of <code>simplified_emoji_or_sequence</code> is <samp>1</samp>, no characters are inserted.)
+        </ol>
+
+        <p>
+        <p>
+            A more nuanced implementation might provide an input method through the admin web-view, as opposed to requiring admins to input custom emoji in the source.
+            Implementations might additionally present admins with the option of specifying image files at multiple sizes, as opposed to just one.
+        <p>
+            Administrators <strong>may</strong> override existing Unicode emoji using this method as well, for example to provide their own shortcodes or images.
+
+    </section>
+    <section id="api">
+
+        <h4>Step II : API interface</h4>
+
+        <p>
+            Once Mastodon has a means of replacing shortcodes with Unicode characters, we need to implement a means of getting those shortcodes, characters, and associated images to frontends to use.
+            This requires an API access point, which <strong>must</strong> give the following:
+
+        <ul>
+            <li> The canonical forms of each custom emoji, <em>including</em> any U+200D ZERO WIDTH JOINER characters
+            <li> The image file(s) to use with each custom emoji
+            <li> Shortcodes for custom emoji
+        </ul>
+
+        <p>
+            This API <strong>may</strong> additionally provide the following information:
+
+        <ul>
+            <li> Information regarding supported Unicode emoji and/or the shortcodes used to identify them
+        </ul>
+
+    </section>
+    <section id="frontend">
+
+        <h4>Step III : Frontend processing</h4>
+
+        <p>
+            After the API is finalized, frontend processing of emoji needs to be added.
+            It is <strong>recommended</strong> that shortcode replacement take place in the backend, such that shortcodes from foreign statuses are not improperly handled.
+            However, at the very least, frontends <strong>must</strong>:
+
+        <ul>
+            <li> Replace defined custom emoji sequences with their associated images
+            <li> Provide users with a means of discovering and inserting shortcodes for custom emoji
+        </ul>
+
+    </section>
+
+</section>
+<section id="next-steps">
+
+    <h3>Next Steps</h3>
+
+    <p>
+        Getting custom instance emoji is a big task, but once complete, a couple of other things have been proposed:
+
+    <ol>
+        <li> Providing an about page listing all emoji and their recognized shortcodes
+        <li> Letting users provide their own images for any defined emoji
+        <li> Standardizing commonly used custom emoji and emoji sequences (for example, a Mastodon emoji) so that they are available (virtually) everywhere
+        <li> Getting upstream to adopt these changes ?? ! !
+    </ol>
+
+</section>

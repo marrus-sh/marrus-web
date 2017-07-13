@@ -329,14 +329,17 @@ cite {
   font-style: italic;
 }
 
-code {
-  color: #1f1a14;
+code, samp, kbd {
   font-size: .85em;
   font-family: "Unifont LANGDEV", "Unifont Upper", "Unifont", monospace;
   line-height: 1;
   -webkit-hyphens: none;
   -ms-hyphens: none;
   hyphens: none;
+}
+
+code {
+  color: #1f1a14;
 }
 
 del {
@@ -382,19 +385,8 @@ ins {
   text-decoration: underline;
 }
 
-kbd {
-  font-family: "Unifont LANGDEV", "Unifont Upper", "Unifont", monospace;
-}
-
 s {
   text-decoration: line-through;
-}
-
-samp {
-  font-family: "Unifont LANGDEV", "Unifont Upper", "Unifont", monospace;
-  -webkit-hyphens: none;
-  -ms-hyphens: none;
-  hyphens: none;
 }
 
 small {
