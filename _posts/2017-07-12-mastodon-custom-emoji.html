@@ -146,6 +146,17 @@ category      : "Mastodon"
                     (If the length of <code>simplified_emoji_or_sequence</code> is <samp>1</samp>, no characters are inserted.)
         </ol>
 
+        <aside>
+            <p>
+                For clarity, the only ZWJ sequences recognized by <cite><a href="http://www.unicode.org/reports/tr51/">Emoji 5.0</a></cite> as valid are those consisting of Unicode-specified emoji values.
+                However, we do not test for this here.
+            <p>
+                This approach limits the scope of possible emoji only to those things which might reasonably be represented by remixing existing emoji forms.
+                One option for encoding other, more difficult, emoji would be to use single Private-Use Area (PUA) characters, <em>however</em> this should not be done lightly or without some manner of external standardization or specification, as PUA characters are notoriously opaque and not well-suited to general interchange.
+            <p>
+                If there is great demand for characters which cannot be encoded using the methods above, we may need to enhance or expand our means of custom emoji representation.
+        </aside>
+
         <p>
         <p>
             A more nuanced implementation might provide an input method through the admin web-view, as opposed to requiring admins to input custom emoji in the source.
