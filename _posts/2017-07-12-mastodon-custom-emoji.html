@@ -48,7 +48,7 @@ category      : "Mastodon"
         <dt> Zero-Width Joiner (ZWJ) sequences
         <dd>
             <p>
-                In those cases where a predefined Unicode character is not available, instances can instead elect to support an emoji zero-width joiner (ZWJ) sequence, which combines multiple emoji characters into a single displayed glyph by placing U+200D ZERO WIDTH JOINER in-between them.
+                In those cases where a predefined Unicode character is not available, instances <strong>may</strong> instead elect to support an emoji zero-width joiner (ZWJ) sequence, which combines multiple emoji characters into a single displayed glyph by placing U+200D ZERO WIDTH JOINER in-between them.
                 This mechanism is already in place for characters such as the pride flag (<code>🏳 + ZWJ + 🌈</code>), the eye in speech bubble (<code>👁 + ZWJ + 🗨</code>), and the various gender-variant forms of emojis, as well as emoji professions.
             <p>
                 <cite><a href="http://www.unicode.org/reports/tr51/">Emoji 5.0</a></cite> expressly allows conforming implementations to support <q>an emoji zwj sequence that is not in [the <abbr title="Recommended for General Interchange">RGI</abbr> emoji ZWJ sequence set]</q> for display, input, or editing as an emoji.
@@ -131,7 +131,7 @@ category      : "Mastodon"
                 <ul>
                     <li>
                         <p>
-                            A U+FE0F VARIATION SELECTOR-16 character is preceded by a character which is not a symbol.
+                            There exists a U+FE0F VARIATION SELECTOR-16 character which is not preceded by a symbol.
                     <li>
                         <p>
                             The character sequence contains a skin tone modifier character (U+1F3FB..U+1F3FF EMOJI MODIFIER FITZPATRICK TYPE-1-2..EMOJI MODIFIER FITZPATRICK TYPE-6).
@@ -149,7 +149,7 @@ category      : "Mastodon"
         <aside>
             <p>
                 For clarity, the only ZWJ sequences recognized by <cite><a href="http://www.unicode.org/reports/tr51/">Emoji 5.0</a></cite> as valid are those consisting of Unicode-specified emoji values.
-                However, we do not test for this here.
+                However, for simplicity of implementation, the algorithm above doesn't explicitly test for this.
             <p>
                 This approach limits the scope of possible emoji only to those things which might reasonably be represented by remixing existing emoji forms.
                 One option for encoding other, more difficult, emoji would be to use single Private-Use Area (PUA) characters, <em>however</em> this should not be done lightly or without some manner of external standardization or specification, as PUA characters are notoriously opaque and not well-suited to general interchange.
