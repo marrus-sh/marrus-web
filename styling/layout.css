@@ -83,6 +83,7 @@ aside {
   margin: .3375rem 0;
   border: thick currentColor double;
   padding: .3375rem 1rem;
+  overflow: auto;
 }
 
 header aside, footer {
@@ -155,6 +156,7 @@ td, th {
 ul, ol, dl {
   margin: .3375em 0;
   padding: 0 0 0 2rem;
+  overflow: auto;
 }
 
 dt {
@@ -197,6 +199,7 @@ blockquote {
   position: relative;
   margin: .675rem 0;
   padding: 0 2rem;
+  overflow: auto;
 }
 
 blockquote::before {
