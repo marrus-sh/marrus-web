@@ -1,0 +1,422 @@
+---
+layout        : "post"
+title         : "Introducing: Mastodon GO!"
+excerpt       : "With it finally nearing a state of somewhat-completion, and since I was taking a two-day sabbatical from coding anyway, I've decided to put together a somewhat more formal presentation of what I've been working on for the past few months—in case you've missed the toots, it's a new frontend for Mastodon, called Mastodon GO!."
+date          : "2017-10-31 00:00:00 -0700"
+tags          : "new"
+category      : "Mastodon"
+---
+
+<p>
+	With it finally nearing a state of somewhat-completion, and since I was taking a two-day sabbatical from coding anyway, I've decided to put together a somewhat more formal presentation of what I've been working on for the past few months&mdash;in case you've missed the toots, it's a new frontend for Mastodon, called Mastodon GO!.
+<p>
+	I've divided this post into five sections.
+	First, I give <a href="#history" target="_self">a brief history</a> of my work on Mastodon frontends, including previous attempts.
+	Next, I discuss <a href="#goals" target="_self">my goals</a> regarding Mastodon GO!, including why I decided to start this project.
+	After that, I dig into <a href="#design" target="_self">the design</a> of Mastodon GO! and go into a little more detail about why particular design choices were made, and then provide a few quick <a href="#implementation" target="_self">notes on implementation</a>, which hopefully will help give others a sense of what building a Mastodon frontend takes and how to go about it.
+	Finally, I lay out the current <a href="#roadmap" target="_self">roadmap</a> for the project, including when to expect a release and how to obtain a copy (unfortunately, we don't have floppy distribution worked out quite yet).
+
+<section id="history">
+
+	<h3>A brief history of Mastodon GO!</h3>
+
+	<section id="previous">
+
+		<h4>Previous attempts</h4>
+		<p>
+			My first attempt at designing a custom Mastodon frontend was well before there was any server which would support hosting it, as part of a premature fork project titled <dfn>Ardipithecus</dfn>.
+			The design was Mastodon-inspired, but a little more open and configurable, written using React and my own API framework called <dfn>Laboratory</dfn>.
+			Many features of Ardipithecus, including the composer and toggles, inspired the final design of Mastodon GO!.
+		<figure>
+			<img alt="Screenshot of Ardipithecus" src="{{site.blog_url}}/media/2017-10-31-arth01.png">
+			<figcaption>
+				A screenshot of Ardipithecus's composer window.
+				Many aspects of this window were preserved in Mastodon GO!'s design.
+			</figcaption>
+		</figure>
+		<p>
+			I started work on Ardipithecus sometime in late February, and worked on it off-and-on through March.
+			When April happened (and with it the massive new-user influx), I decided to take a break from development for a bit to preserve my sanity.
+			This didn't last long, and in a month I was working on another, more esoteric Classic Macintosh&ndash;inspired frontend named <dfn>Snow</dfn>.
+		<figure>
+			<img alt="Screenshot of Snow Web Client" src="{{site.blog_url}}/media/2017-10-31-snow-web.png">
+			<figcaption>
+				A screenshot of a Snow user profile.
+				Inspired by a time when Mastodon's static avatar generation produced fuzzy pictures, the images appeared in black-and-white except on hover.
+			</figcaption>
+		</figure>
+		<p>
+			Snow was developed as an experiment using plain JavaScript (well, CoffeeScript) and my Laboratory library, with no additional dependencies.
+			It reached a state of somewhat-completion, but I decided to take a break from the project during a period of extensive upstream development until the API had once again settled down.
+
+	</section>
+	<section id="glitch">
+
+		<h4>Initial development</h4>
+		<p>
+			A short time later, I joined the team at <a href="https://glitch-soc.github.io/docs/" title="Mastodon Glitch Edition"><code>glitch-soc</code></a> and began hacking on Mastodon proper.
+			Over the course of a little over a week, I implemented <a href="https://github.com/glitch-soc/mastodon/commit/0d3ec19e89b7a3b6e01f2018640c713dd545ae21" title="✨ Profile Metadata HACK 😈">user-defined profile metadata</a>, <a href="https://github.com/glitch-soc/mastodon/commit/93c52301ade71fb685d937b90451974d03d710af" title="Collapsable toots [1/??] ☕️">collapsable statuses</a>, <a href="https://github.com/glitch-soc/mastodon/commit/38a1299975e867c637c73b9ee5439cff08d08e96" title="Stick images inside of CWs">placing images inside of CWs</a>, and <a href="https://github.com/glitch-soc/mastodon/commit/595c6de32c052f2a5e21307a0e43a6bd5d4b5c88" title="Added App Setttings Modal">an app settings modal</a>.
+			These features were well-received, but they were to some extent still just hacks, and I wanted to flesh them out more fully and help to unify Mastodon's status code.
+			From <a href="https://github.com/glitch-soc/mastodon/pull/137" target="_blank">this refactor</a> was born Mastodon GO!
+		<p>
+			The majority of the API and redux code for Mastodon GO!, including core magicks such as its <code>connect()</code> and <code>go()</code> functions, were written in their initial state while I was visiting a friend in Chicago in the beginning of September.
+			The <code>rainbow()</code> function, which creates configurable rainbows from strings, was written shortly after, alongside a preliminary frontend design.
+			In the beginning, <em>everything</em> was rainbows.
+		<figure>
+			<img src="{{site.blog_url}}/media/2017-10-31-masto-rainbow.png">
+			<figcaption>
+				Yes, this is how things looked for a while.
+			</figcaption>
+		</figure>
+		<p>
+			This design was reworked to be more open, friendly, and energetic, and led to the final Mastodon GO! design you see today.
+
+	</section>
+
+</section>
+<section id="goals">
+
+	<h3>Why a new frontend?</h3>
+	<p>
+		Some folks might be asking, as I myself have found myself wondering from time to time, why I am putting so much energy in creating a new web frontend for Mastodon.
+		This is really a combination of two separate-but-related questions:
+	<ol>
+		<li> Why am I spending so much time creating a separate <em>web</em> frontend for Mastodon <em>as opposed to other kinds of frontends</em>, like a native one for macOS?
+		<li> Why am I spending so much time creating a separate frontend for Mastodon <em>at all</em>, when the one it has already works so well?
+	</ol>
+	<p>
+		The answer to the first question is relatively simple:
+		Because I'm way better at coding for web than I am at coding for native macOS, so focusing on web design is the most productive use of my energies.
+		The answer to the second question is a little more complex, so I've explained in a bit more detail below.
+
+	<section id="differences">
+
+		<h4>Differences in approach</h4>
+		<p>
+			It's an open secret that upstream Mastodon development and I haven't historically always seen eye-to-eye.
+			That's totally okay&mdash;one of the great things about open software and standards is that I can <em>make</em> a fork and do things my way, and upstream can do things their way, and the two implementations can still interact and both parties can be satisfied.
+			In fact, this process probably serves to strengthen the software overall.
+			So I don't want the mere fact that I think things should be done in X way and upstream has made the decision to do things Y way to be seen as any kind of indictment on them as a group or what they are trying to accomplish.
+			I think Mastodon is good software and that's why I've spent so much time developing things for it.
+			(I just think that I can do things better is all.)
+		<p>
+			I'll break down some of these differences in more detail in the section on design below, so keep reading for more.
+			But suffice to say that we both have different priorities and different target audiences, with upstream attempting to make a polished product for the world, and me mostly just wanting to build something for myself and my community.
+			Both of these things have their place, and I don't see why they can't coëxist harmoniously
+
+
+	</section>
+	<section id="anxiety">
+
+		<h4>Developing for a forked frontend is anxiety-inducing</h4>
+		<p>
+			When developing changes to the Mastodon <em>backend</em> as a part of <code>glitch-soc</code>, this work tends to mostly be comprised of developing new features and integrating them as nicely as possible with the existing ones.
+			In this process, backwards compatibility is very important, since it would be a problem if <code>glitch-soc</code> servers stopped behaving in a way that upstream servers expect and can understand.
+			Consequently, existing code is largely left in-place, and this makes maintainance further down the road easier.
+		<p>
+			When it comes to the <em>frontend</em>, however, the changes we make are <em>frequently</em> at odds with the existing implementation.
+			Mastodon's frontend is a very tightly bound mesh, and our goals have for the most part been involved less with adding new features than changing existing ones.
+			Profile metadata, placing media inside of CWs, adding status collapsing, et cetera have all caused no small amount of headache when it comes time to merge in the latest features from upstream.
+		<p>
+			Furthermore, because we don't have any control over what features Mastodon decides to rework or how, we often find ourselves with software that could end up breaking at any time.
+			For example, if upstream Mastodon decides to delete a few lines of unused stylesheet code, the current video player on <code>glitch-soc</code> might completely stop functioning.
+			This situation is not ideal, and rather anxiety-inducing.
+		<p>
+			So a big part of me wanting to design a new frontend is the simple fact that, given the scope of what I would like to achieve, and given that these are changes that are unlikely to ever gain upstream support, trying to maintain the frontend as a fork of the original software simply became impractical.
+			Furthermore, divorcing myself from the existing frontend code has enabled me to reärchitecture core parts of the software, like how Mastodon stores and receives information, to better suit the needs of my components.
+
+	</section>
+	<section id="representation">
+
+		<h4>Representation and community</h4>
+		<p>
+			Some of you who have been around for a while might remember how, back in April, I penned a 7,000 word essay (under the name of Allie Hart) about how the face of Mastodon was changing and the queer communities which had helped give it its inital start were getting pushed to the sidelines and yadda yadda blah blah.
+			What maybe went unstated at the time was that this essay was in fact largely a political gesture to help generate leverage to push for a project manager, better community-development relations, and increased transparency regarding how the development process generally works.
+			So it came out perhaps a little more incendiary than it perhaps otherwise would have been as a purely informative critique.
+			Also I was, at the time, pretty frustrated.
+		<p>
+			In the time since then, Mastodon as made great strides towards becoming more open and transparent and conscious of its communit<del>y</del><ins>ies</ins>.
+			(Although, there is still work to be done.)
+			So I'm not really interested in poking at old wounds.
+			That said, I think the issue of representation in Mastodon development, both <em>for minority groups in general</em> and <em>regarding queer individuals specifically</em>, is still something of an open question.
+			However, it's not a question that I think needs to be resolved with hostility.
+		<p>
+			For obvious reasons, as the default user interface that ships with every installation of the Mastodon software, the vanilla Mastodon frontend needs to be able to maintain some semblance of neutrality when it comes to community concerns.
+			But there's no reason why instance admins, developers, and users need necessarily be constrained by that same set of limitations.
+			So I want to see more frontends that respond to specific cultural and subcultural needs, that maybe don't take such a one-size-fits-all approach to software development, that are more Mom &amp; Pop in their orientation and aesthetic.
+			Mastodon GO! is a pilot program in pursuit of that goal, and when designing it I've tried to take an approach that makes it easy to reärchitecture or reconfigure by others interested in crafting their own unique blends.
+			And, as a 23-year-old rural American trans girl, my decisions in that respect have been far from neutral, as you'll read more about below.
+
+	</section>
+
+</section>
+<section id="design">
+
+	<h3>The design</h3>
+	<p>
+		Design is something that I think is both really really important and also not talked about enough.
+		It's one of those things that it's hard to just pick up on your own if you're not having conversations about it or listing to other people's ideas.
+		So I want to go in-depth on a few different design decisions I've made regarding Mastodon GO!, which will hopefully also shed some light on why I thought this whole project was necessary in the first place.
+
+	<section id="colour">
+
+		<h4>Colour</h4>
+		<p>
+			Mastodon GO! uses a light theme with primary colours of red and navy blue.
+			I've chosen this colour scheme for a number of reasons, not the least of which being that it's one of my favourite colour combinations out there (no joke&mdash;senior year of college my entire room was decorated according to this aesthetic).
+			But there's more behind it than just looking pretty, and I want to take some time to go into that more.
+		<p>
+			Colour is a tricky subject because it's hard to put into words what colours <em>mean</em>, but the fact remains that they <em>mean something</em>, and that makes them an incredibly powerful site for both subversion and sublimation.
+			Mastodon GO!'s colour scheme is incredibly bold and vibrant, a direct response to both the washed-out palettes of modern social media and the <a href="https://www.lokidesign.net/journal/2016/2/22/the-propaganda-of-pantone-colour-and-subcultural-sublimation">cultural appropriation</a> of soft pastels by Starbucks and Pantone.
+		<figure style="table-layout: fixed; width: 100%">
+			<table style="width: 100%; background: #000000; text-align: center">
+				<col><col style="width: 60%">
+				<tr style="color: #000000">
+					<td colspan="2" style="height: 2em; background: #ffffff; vertical-align: middle"><code style="color: inherit">#ffffff</code>
+				<tr style="color: #000000">
+					<td style="height: 2em; background: #f1ccc0; vertical-align: middle"><code style="color: inherit">#f1ccc0</code>
+					<td rowspan="3" style="width: 60%; background: #f0f0f0; vertical-align: middle"><code style="color: inherit">#f0f0f0</code>
+				<tr style="color: #000000">
+					<td style="height: 2em; background: #ecafa2; vertical-align: middle"><code style="color: inherit">#ecafa2</code>
+				<tr style="color: #000000">
+					<td style="height: 2em; background: #d58072; vertical-align: middle"><code style="color: inherit">#d58072</code>
+				<tr style="color: #ffffff">
+					<td style="height: 2em; background: #8a1c00; vertical-align: middle"><code style="color: inherit">#8a1c00</code>
+					<td rowspan="3" style="width: 60%; background: #cd2c00; vertical-align: middle"><code style="color: inherit">#cd2c00</code>
+				<tr style="color: #ffffff">
+					<td style="height: 2em; background: #521205; vertical-align: middle"><code style="color: inherit">#521205</code>
+				<tr style="color: #ffffff">
+					<td style="height: 2em; background: #2e0500; vertical-align: middle"><code style="color: inherit">#2e0500</code>
+				<tr style="color: #ffffff">
+					<td style="height: 2em; background: #021335; vertical-align: middle"><code style="color: inherit">#021335</code>
+					<td rowspan="3" style="width: 60%; background: #004599; vertical-align: middle"><code style="color: inherit">#004599</code>
+				<tr style="color: #ffffff">
+					<td style="height: 2em; background: #05285c; vertical-align: middle"><code style="color: inherit">#05285c</code>
+				<tr style="color: #ffffff">
+					<td style="height: 2em; background: #eeae00; vertical-align: middle"><code style="color: inherit">#eeae00</code>
+				<tr style="color: #ffffff">
+					<td colspan="2" style="height: 2em; background: #000000; vertical-align: middle"><code style="color: inherit">#000000</code>
+			</table>
+			<figcaption>The Mastodon GO! colour scheme</figcaption>
+		</figure>
+		<p>
+			Red is an incredibly underrepresented colour online (okay, to be fair, any colour that isn't blue is an incredibly underrepresented colour online), reserved mostly for error messages and notification markers.
+			Mastodon GO! reappropriates it as its most vivid and emphasized shade.
+			The combination of reds and blues that I've used is highly reminiscent of rural Americana&mdash;red barns and clear skies over fields of grain, pickup trucks and <del>jeans</del><ins>jorts</ins> on a hot summer's day.
+			This stands in direct contrast to the monochrome, industrial, urban look currently in vogue across the modern web.
+		<figure>
+			<img alt="A photo of Palouse, Washington" src="{{site.blog_url}}/media/2017-10-31-palouse-wa.jpg">
+			<figcaption>
+				<a href="https://flic.kr/p/gYXmcn"><cite>Palouse, WA.</cite></a>, by Robert Ashworth <small>[<a href="https://creativecommons.org/licenses/by/2.0/" title="Creative Commons Attribution 2.0 Generic">CC BY</a>]</small>
+			</figcaption>
+		</figure>
+		<p>
+			The specific shades of red chosen were pulled from a modified screenshot from the anime <cite>Chihayafuru</cite>, which I used as my profile picture for some time and which has served as a baseline inspiration for the entire Mastodon GO! project.
+			The blues were then adjusted to harmonize with these colours.
+		<figure>
+			<img alt="A shirt with the word GO! in red, from the anime Chihayafuru" src="{{site.blog_url}}/media/2017-10-31-go-icns.png">
+			<figcaption>If you wondered where the name Mastodon GO! came from, this is a good place to start.</figcaption>
+		</figure>
+
+	</section>
+	<section id="composer">
+
+		<h4>The composer</h4>
+		<p>
+			The composer is Mastodon GO!'s most technically complex part, and also the site of a number of significant changes from the approach of vanilla Mastodon.
+			The various toggles and dropdowns have been removed, and the overall design has been simplified in a manner reminiscent of email.
+			Whereas Mastodon's <i>CW</i> button leverages a subculturally-specific phrase whose meaning is opaque to many new users, anybody who has ever sent an email can discern what Mastodon GO!'s <q>Subject…</q> field is for.
+			The buttons at the bottom of the text area are similar to those found on most other messaging apps, and this selection is easily extendable with new features (like a doodle window) later.
+		<figure>
+			<img alt="The Mastodon GO! composer" src="{{site.blog_url}}/media/2017-10-31-composer.png">
+			<figcaption>
+				The Compose column in Mastodon GO!
+				(Design not necessarily final.)
+			</figcaption>
+		</figure>
+		<p>
+			Instead of immediately posting a status when the user clicks the button, Mastodon GO! (by default) opens up a preview window, which serves a dual function of showing users how their toot will be rendered and presenting them with visibility settings.
+			For new users, this is important for both teaching them what privacy options are available, and letting them know how their input will be processed and displayed.
+			For users who have been on the platform for a while, it is possible to post using your default privacy settings by holding down the <kbd>alt</kbd> key, which changes the <q>Preview</q> button into a <q>Quick toot</q> one (currently, and other toggles regarding this are planned).
+		<figure>
+			<img alt="The Mastodon GO! composer" src="{{site.blog_url}}/media/2017-10-31-preview.png">
+			<figcaption>
+				The Preview panel in Mastodon GO!
+				The toggles provided are still not as self-explanatory as I would like, and due to the nature of Mastodon, not all combinations are possible.
+				So this area might receive simplifications or a redesign in the future.
+			</figcaption>
+		</figure>
+
+	</section>
+	<section id="panels">
+
+		<h4>Panels</h4>
+		<p>
+			Most of the toggles, configurability, and additional features of vanilla Mastodon are provided through a combination of modal windows and dropdowns.
+			Personally, I dislike both of these design elements, for two reasons:
+		<ol>
+			<li> Content appearing on top of other content adds busyness and confusion to the screen (<em>especially</em> when that other content can move, as in a timeline).
+			<li> The user experience of both on mobile devices is generally horrible.
+		</ol>
+		<p>
+			Instead, I have implemented a system of <dfn>panels</dfn>, which slide over the main content, ensuring that only one thing is ever in the column view at a time.
+			These panels are essentially subnavigations within the column (they use the <code>#hash</code> part of the URL) for things like column settings and user timelines.
+			This consequently means that they are tracked by the browser history and can be navigated using the forward and back buttons.
+		<figure>
+			<img alt="Timeline settings in Mastodon GO!" src="{{site.blog_url}}/media/2017-10-31-settings.png">
+			<figcaption>
+				Timeline settings take up the entire column in Mastodon GO!.
+				Design not final.
+			</figcaption>
+		</figure>
+		<p>
+			(As a personal note, I have found that with vanilla Mastodon, when you are pretty much looking at the same exact screen the entire time, the user experience can seem a touch… passive.
+			It sounds silly, but having buttons and panels which slide open and closed can make things feel a little more fun.)
+
+	</section>
+	<section id="purposeful">
+
+		<h4>Purposeful components</h4>
+		<p>
+			Mastodon GO!'s design components are very <em>purposeful</em>, by which I mean that every component is designed to fulfil a specific purpose, and does precisely what is required to do so.
+			There aren't any fancy animations, branding elements, or pieces of filler content, and each component is architectured to encode as much information as possible without losing clarity.
+			This stands in contrast to vanilla Mastodon, which often sacrifices purpose for aesthetic.
+		<figure>
+			<img alt="Vanilla Mastodon's Getting Started column. Some of the options are obscured." src="{{site.blog_url}}/media/2017-10-31-getting-started.png">
+			<figcaption>
+				I can view the site branding and elephant, but the button to access my preferences is obscured.
+				This is a textbook example of <a href="https://www.youtube.com/watch?v=tSmI4KO9968" title="Andie Nordgren: From User Focus To Participation Design">failing to get over yourself</a>.
+			</figcaption>
+		</figure>
+		<p>
+			As a general rule, overlays have been avoided, and a blocky design aesthetic has been chosen which lays out content in a clear and straightforward manner.
+			The emphasis is first and foremost on enabling users to interact with each other through the software, which means prioritizing convenience and comprehensibility over appearance.
+		<figure>
+			<table>
+				<tr>
+					<td style="vertical-align: middle"><img alt="Vanilla Mastodon's user profile header. A circular avatar and text is displayed over the header image." src="{{site.blog_url}}/media/2017-10-31-vanilla-profile.png">
+					<td style="vertical-align: middle"><img alt="Mastodon GO! does not overlay content." src="{{site.blog_url}}/media/2017-10-31-go-profile.png">
+			</table>
+			<figcaption>
+				The avatar, text, and overlay almost completely obscure the header image on vanilla Mastodon, and circular avatars hide content, rather than making it visible.
+				On Mastodon GO!, all three are displayed with clarity.
+				Design not final.
+			</figcaption>
+		</figure>
+
+	</section>
+
+</section>
+<section id="implementation">
+
+	<h3>Implementation notes</h3>
+	<p>
+		Mastodon GO! was written entirely by me over the course of, roughly speaking, the past three months (and counting!).
+		In the process of implementing the design above, there are a number of coding principles which have guided me that I'd like to go into with a little bit of detail here.
+
+	<section id="structure">
+
+		<h4>Organization and structure</h4>
+		<p>
+			Every aspect of Mastodon GO!'s internal design follows a strict heirarchical organization which is reflected through both the file structure of the source code and the naming of variables and components.
+			There is no <code>import SettingToggle from '../../notifications/components/setting_toggle'</code>.
+			As a matter of fact, the only components which are able to be imported are either:
+		<ol>
+			<li> Components in subdirectories of the current directory, and
+			<li>
+				Base-level components from one of the core component folders: <code>common</code>, <code>connected</code>, <code>raw</code>, <code>panelled</code>, and <code>routed</code>.
+				Furthermore, these folders <em>also</em> follow a heirarchy: <code>connected</code> components can only import other <code>connected</code> elements or elements which are <code>common</code>; <code>common</code> elements can't import anything at all.
+		</ol>
+		<p>
+			The precise specifics of this heirarchy are beyond the scope of this blogpost but suffice it to say that there are some very particular rules regarding things.
+			This offers the advantage of not only packaging components in predictable places (it is always apparent both from the component name and its function where its file can be found) but also clearly designating where certain components may or may not be used.
+			The same holds true for other aspects of the source code (Redux and utility functions, for example).
+
+
+	</section>
+	<section id="magic">
+
+		<h4>Carefully-applied magicks</h4>
+		<p>
+			One principle of Mastodon GO!'s engineering is that the code should be comprehensible even to those not familiar with the codebase.
+			Another (related) principle holds that code should be kept succinct and straightforward, with a minimum amount of code duplication (difficult when using a framework like React).
+			Both of these ideas are addressed in Mastodon GO! by designing a few tightly-complicated magic functions&mdash;<code>go()</code>, <code>connect()</code>, <code>&lt;ConnectedParse&gt;</code>, <code>&lt;RawPaneller&gt;</code>, etc&mdash;which serve to provide an additional layer of abstraction for simplifying the code overall.
+		<p>
+			These functions serve a secondary goal of making implicit conventions into explicit requirements&mdash;having the <code>&lt;RawPaneller&gt;</code> handle all column layouts, for example, requires columns to necessarily be structured a certain way and guarantees that they will always produce a similar result.
+			And this principle is extended to simple components as well:
+			Using <code>&lt;CommonLink&gt;</code> for all links ensures that links always follow a similar pattern, and using <code>&lt;CommonButton&gt;</code> for every button helps to guarantee that they will always meet accessibility requirements.
+			Generalized, this is the idea of letting the computer handle the things the computer is good at, and leaving the designer to handle the things the designer is necessary for.
+			And it frees people browsing the source from needing to know the specifics of how Mastodon GO! button handling works in order to understand button-filled code.
+
+	</section>
+
+</section>
+<section id="roadmap">
+
+	<h3>Development and roadmap</h3>
+	<p>
+		As it stands, the current roadmap for the Mastodon GO! project is as follows:
+	<ol>
+		<li>
+			Finish building the core features of the frontend, so that it is ready for live testing.
+			At this point, the only major feature which remains to be implemented is attachment uploading, although a number of smaller features are still quite lacking.
+			This should be wrapped up (depending on how thorough I'm intent on being) in anywhere from a couple of days to a week.
+			(Note that these are just the core features for <em>development and testing</em>, and that this release will not yet be ready for general use.)
+		<li>
+			Begin live testing of the frontend.
+		<li>
+			Improve the theming capabilities of <code>glitch-soc</code>, with particular attention to the following items:
+			<ul>
+				<li> Link prefetching.
+				<li> Localization.
+			</ul>
+			(This will probably take about a week.)
+		<li>
+			Continue work on Mastodon GO! in order to get it to a feature-complete status.
+			The features which are slated for this development period include things like:
+			<ul>
+				<li> Reports.
+				<li> Multiple column support.
+				<li> Saving settings between sessions.
+				<li> Bonus features (improved metadata support, other <code>glitch-soc</code> features)
+			</ul>
+		<li>
+			Beta release.
+			At this point Mastodon GO! will have (at least) the minimum featureset required for general use.
+		<li>
+			Work on documentation, tests, and general polish.
+		<li>
+			1.0 release.
+	</ol>
+	<p>
+		Mastodon GO! depends heavily on the theming capabilities of the <code>glitch-soc</code> fork, which is also slowly working its way towards stability.
+		As the details of that release schedule get nailed down, expect Mastodon GO!'s release schedule to respond accordingly.
+
+	<section id="contributions">
+
+		<h4>Footnote: Regarding contributions</h4>
+		<p>
+			Believe it or not, I'm actually not super interested in contributions from a whole bunch of people right now.
+			Part of this is because I want there to be a whole fuckton of Mastodon frontends, and more people developing mine means fewer people developing their own (feel free to remix shit tho).
+			Part of this is because, although most of the kinks have been worked out by now, until very recently the code was not at all in a stable place and I was reärchitecturing things about every other week, which is not a very pleasant work environment for a contributor.
+			And a big part of it has to do with my feelings around programming and development and community in general.
+		<p>
+			I have more thoughts on this than I can fit in a footnote to a blogpost that I'm writing way past my bedtime, but the short version is that Mastodon GO! has a very particular design sensibility, a very particular orientation and way of going about things and approach, very particular goals and priorities and things that it's trying to achieve.
+			I mean, I've just spent thousands of words trying to describe these things to you, so you know that they're there.
+			And that's <em>not</em> just something you can pick up and hack on.
+			It's not designed to be.
+		<p>
+			This isn't to say that Mastodon GO! is like, an entirely personal project or that nobody should ever try to dig into its code.
+			But it <em>is</em> to say that the process of digging into its code looks less like solving a problem in math class and more like understanding the set of norms which structure a community.
+			That's what I mean when I call Mastodon GO! a <q>Mom &amp; Pop</q> or jokingly refer to it as <q>family-owned and -operated.</q>
+			It's not about the code, and it's not about the features, it's about acting according to a set of principles and doing right by them.
+		<p>
+			And that's… not what I get the sense that most open-source software development is like.
+			I think that's something we should maybe work on changing.
+			Having built this entire thing with my own two hands, I'm not exactly wanting for help, and I have the ability to hold out for a more meaningful development experience, so I'm going to.
+
+	</section>
+
+</section>
+
+<footer>With love,<br>&mdash; Gô</footer>
